@@ -15,18 +15,23 @@
 
 <style lang="scss">
   .button-card {
-    background: $primary-color;
+    background-color: $primary-color;
     height: 50px;
     border-radius: 0px 0px $border-radius-m $border-radius-m;
     line-height: 50px;
-  }
+    transition: background-color ease-in-out 0.25s;
 
-  .button-card__text {
-    margin: 0;
-    text-align: center;
-    text-transform: uppercase;
-    line-height: 50px;
-    font-weight: $font-weight-bold;
-    color: white;
+      &:hover {
+        background-color: darken($primary-color, 10%);
+      }
+
+      &__text {
+        margin: 0;
+        text-align: center;
+        text-transform: uppercase;
+        line-height: 50px;
+        font-weight: $font-weight-bold;
+        color: white;
+       }
   }
 </style>
