@@ -12,5 +12,6 @@ export default {
 <template>
 	<div id="app">
 		<Connexion></Connexion>
+		
 	</div>
 </template>
