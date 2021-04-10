@@ -1,10 +1,39 @@
-$primary: #FD2D01;
-$secondary: #091F43;
-$tertiary: #3565B4;
+//original name of colors
+$scarlet: #FD2D01;
+$downriver: #091F43;
+$azure: #3565B4;
 
-$scarlet: $primary;
-$downriver: $secondary;
-$azure: $tertiary;
+//colors
+$primary-color: $scarlet;
+$secondary-color: $downriver;
+$tertiary-color: $azure;
 
+//grey
 $bg-body: #F5F5F5;
 
+//typography
+$font-family-sans-serif: 'Roboto', Helvetica, Arial, sans-serif;
+$font-family-serif: Georgia, serif;
+
+$font-weight-thin: 100;
+$font-weight-light: 300;
+$font-weight-regular: 400;
+$font-weight-bold: 800;
+
+//shadow
+$net-shadow: 0 2px 5px rgb(170, 170, 170);
+$blur-shadow: 0 10px 10px rgb(230, 230, 230);
+$dark-shadow: 0 5px 15px rgb(170, 170, 170);
+$very-dark-shadow: 0 5px 15px rgb(120, 120, 120);
+
+//border-radius
+$border-radius-xs: 5px;
+$border-radius-s: 10px;
+$border-radius-m: 20px;
+$border-radius-l: 30px;
+$border-radius-xl: 100%;
+
+//breakpoint
+$width-small: 400px;
+$width-medium: 760px;
+$width-large: 1200px;

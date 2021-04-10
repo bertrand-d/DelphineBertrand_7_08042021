@@ -3,9 +3,9 @@
 //1. configuration et utilitaires
 @import 
     './utils/variables',
-    './utils/functions',
+    './utils/keyframes',
     './utils/mixins',
-    './utils/placeholders';
+    './utils/extend';
 
 //2. Vendors
 @import 

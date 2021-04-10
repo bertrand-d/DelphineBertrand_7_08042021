@@ -1,0 +1,4 @@
+//container of the different sections (header, footer included) of the website
+@mixin section-container($top:50px, $right:20px, $bottom:50px, $left:20px) {
+	padding: $top $right $bottom $left;
+}
