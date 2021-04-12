@@ -11,9 +11,10 @@
 
 <style lang="scss">
     .input {
+        width: 100%;
         height: 40px;
         border: solid 2px #E6DEDE;
-        padding-left: $padding-m;
+        padding-left: 20px;
         border-radius: 15px;
 
         &::placeholder{

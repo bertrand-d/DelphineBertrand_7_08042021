@@ -17,9 +17,10 @@
   .button-card {
     background-color: $primary-color;
     height: 50px;
-    border-radius: 0px 0px $border-radius-m $border-radius-m;
+    border-radius: 0px 0px 20px 20px;
     line-height: 50px;
     transition: background-color ease-in-out 0.25s;
+    margin: 0 -20px -20px -20px;
 
       &:hover {
         background-color: darken($primary-color, 10%);
