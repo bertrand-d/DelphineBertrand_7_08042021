@@ -19,7 +19,6 @@
 
         &::placeholder{
             opacity: 100%;
-            text-transform: capitalize;
         }
     }
 </style>

@@ -11,6 +11,7 @@
 
 <style lang="scss">
   .text-link {
+    font-size: 0.8rem;
     color: $tertiary-color;
     font-weight: $font-weight-bold;
     text-align: center;

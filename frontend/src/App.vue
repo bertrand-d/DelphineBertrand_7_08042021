@@ -1,5 +1,5 @@
 <script>
-import Login from './components/molecules/Login.vue'
+import Login from './components/organisms/Login.vue'
 
 export default {
 	name: 'App',
