@@ -35,6 +35,7 @@ export default {
     max-width: 300px;
     border-radius: $border-radius-m;
     box-shadow: $blur-shadow;
+    background-color: white;
 
     &__body {
     padding: 40px 20px;
@@ -49,9 +50,8 @@ export default {
   }
 
   .login__spacer {
-    width: 0;
     height: 50px;
-    border: solid 1px #E6DEDE;
+    border-right: solid 1px #E6DEDE;
   }
 
   .login__input {
