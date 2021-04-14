@@ -6,7 +6,7 @@
 </script>
 
 <template>
-  <a class="text-link" :href="url"> {{ text }} </a>
+<router-link class="text-link" :to="url">{{ text }}</router-link>
 </template>
 
 <style lang="scss">

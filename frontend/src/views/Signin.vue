@@ -1,35 +1,36 @@
 <script>
 
-import Login from '../components/organisms/Login.vue'
+import SigninBox from '../components/organisms/SigninBox.vue'
 import Logo from '../components/atoms/Logo.vue'
 
 export default {
-  name: 'Home',
+  name: 'Signin',
   components: {
-    Login,
+    SigninBox,
     Logo
   }
 }
 </script>
 
 <template>
-  <div class="home__container">
-    <div class="home__logo">
+  <div class="signin__container">
+    <div class="signin__logo">
       <Logo></Logo>
     </div>
-      <Login></Login>
+      <SigninBox></SigninBox>
   </div>
 </template>
 
-<style lang='scss'>
-.home__container {
+<style>
+.signin__container {
   position: fixed;
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
 
-.home__logo {
+.signin__logo {
+  margin: auto;
   max-width: 300px;
 }
 </style>

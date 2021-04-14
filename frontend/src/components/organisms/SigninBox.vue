@@ -4,7 +4,7 @@ import Input from '../atoms/Input.vue'
 import TextLink from '../atoms/TextLink.vue'
 
 export default {
-  name: 'Signin',
+  name: 'SigninBox',
   components: {
     ButtonCard,
     Input,
@@ -27,10 +27,9 @@ export default {
                 </div>
             </div>
             <div class= "signin__body-text-link-container">
-            <TextLink class="signin__text-link" url="/" text= "J'ai déjà un compte"/>
+            <TextLink url="/" text= "J'ai déjà un compte"/>
             </div>
       </div>
-        
         <ButtonCard url ="/" text="inscription"/>
     </div>
  

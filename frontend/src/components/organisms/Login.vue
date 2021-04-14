@@ -19,9 +19,9 @@ export default {
         <Input class="login__input" type ="email" name="email" placeholder="E-mail"/>
         <Input class="login__input" type ="password" name="password" placeholder="Mot de passe"/>
         <div class ="login__body-container">
-          <TextLink class="login__text-link" url="/" text= "Mot de passe oublié"/>
+          <TextLink class="login__text-link" url="signin" text= "Mot de passe oublié"/>
           <div class= "login__spacer"></div>
-          <TextLink class="login__text-link" url="/" text= "Créer un compte"/>
+          <TextLink class="login__text-link" url="signin" text= "Créer un compte"/>
         </div>
       </div>
         <ButtonCard url ="/" text="connexion"/>
