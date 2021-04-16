@@ -1,13 +1,13 @@
 <script>
 
 import SigninBox from '../components/organisms/SigninBox.vue'
-import Logo from '../components/atoms/Logo.vue'
+import LogoTop from '../components/atoms/LogoTop.vue'
 
 export default {
   name: 'Signin',
   components: {
     SigninBox,
-    Logo
+    LogoTop
   }
 }
 </script>
@@ -15,7 +15,7 @@ export default {
 <template>
   <div class="signin__container">
     <div class="signin__logo">
-      <Logo></Logo>
+      <LogoTop></LogoTop>
     </div>
       <SigninBox></SigninBox>
   </div>

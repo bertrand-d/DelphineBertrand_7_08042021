@@ -40,7 +40,7 @@ export default {
   .signin {
     max-width: 650px;
     border-radius: $border-radius-m;
-    box-shadow: $blur-shadow;
+    box-shadow: $net-shadow;
     background-color: white;
     text-align: center;
 

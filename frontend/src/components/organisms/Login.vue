@@ -34,7 +34,7 @@ export default {
   .login {
     max-width: 300px;
     border-radius: $border-radius-m;
-    box-shadow: $blur-shadow;
+    box-shadow: $net-shadow;
     background-color: white;
 
     &__body {

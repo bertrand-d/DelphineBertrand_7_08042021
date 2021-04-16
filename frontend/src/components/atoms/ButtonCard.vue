@@ -6,11 +6,11 @@
 </script>
 
 <template>
-  <a :href="url">
+  <router-link :to="url">
     <div class = "button-card">
       <p class = "button-card__text">{{ text }}</p>
     </div>
-  </a>
+  </router-link>
 </template>
 
 <style lang="scss">

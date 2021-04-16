@@ -1,11 +1,11 @@
 <script>
   export default {
-    name: 'Logo'
+    name: 'LogoLeft'
   }
 </script>
 
 <template>
-    <img class="logo" src ="../../assets/icon-above-font.png">
+    <img class="logo" src ="../../assets/icon-left-font.png">
 </template>
 
 <style lang="scss">
