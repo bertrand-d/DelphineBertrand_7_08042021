@@ -7,7 +7,7 @@
 </script>
 
 <template>
-    <img class="logo" :src="require(`@/assets/${src}`)">
+    <img class="logo" :src="require(`@/assets/${src}`)" alt="logo de l'entreprise grouporama représentant une planète">
 </template>
 
 <style lang="scss">
