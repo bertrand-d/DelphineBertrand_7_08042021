@@ -1,11 +1,13 @@
 <script>
   export default {
-    name: 'LogoLeft'
+    name: 'Logo',
+    props: ['src']
   }
+
 </script>
 
 <template>
-    <img class="logo" src ="../../assets/icon-left-font.png">
+    <img class="logo" :src="require(`@/assets/${src}`)">
 </template>
 
 <style lang="scss">

@@ -6,8 +6,7 @@
 
 
 <template>
-    
-    <div>Text<i class="icon far fa-comment-alt"></i></div>
+    <div></div>
 </template>
 
 <style lang="scss">

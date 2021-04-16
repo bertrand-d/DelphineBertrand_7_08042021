@@ -1,11 +1,11 @@
 <script>
-import LogoLeft from '../atoms/LogoLeft.vue'
-import Icon from '../molecules/Icon.vue'
+import Logo from '../atoms/Logo.vue'
+import Icon from '../atoms/Icon.vue'
 
 export default {
   name: 'NavBar',
   components: {
-    LogoLeft,
+    Logo,
     Icon
   }
 }
@@ -13,9 +13,9 @@ export default {
 
 <template>
     <nav>
-        <LogoLeft></LogoLeft>
+        <Logo src="icon-left-font.png"></Logo>
         <ul>
-            <li><Icon></Icon></li>
+            <li><Icon class ="far fa-comment-alt"></Icon></li>
             <li></li>
         </ul>
     </nav>
