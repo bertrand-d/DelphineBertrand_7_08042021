@@ -1,24 +1,22 @@
 <script>
-
-import NavBar from '../components/organisms/NavBar.vue'
-import Tooltip from '../components/atoms/Tooltip.vue'
+import NavBar from "../components/organisms/NavBar.vue";
+import PictureProfile from "../components/atoms/PictureProfile.vue";
 
 export default {
-  name: 'Profile',
+  name: "Profile",
   components: {
     NavBar,
-    Tooltip
-  }
-}
+    PictureProfile
+  },
+};
 </script>
 
 <template>
-<div>
+  <div id="profile">
     <NavBar></NavBar>
-    <Tooltip text="coucou"></Tooltip>
-</div>
+    <PictureProfile src="walter.jpg"></PictureProfile>
+  </div>
 </template>
 
 <style lang='scss'>
-
 </style>
