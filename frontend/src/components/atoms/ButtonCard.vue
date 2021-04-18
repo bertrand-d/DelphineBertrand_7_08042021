@@ -26,7 +26,6 @@
       }
 
       &__text {
-        margin: 0;
         text-align: center;
         text-transform: uppercase;
         line-height: 50px;

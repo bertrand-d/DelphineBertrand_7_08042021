@@ -1,12 +1,12 @@
 <script>
-import Logo from "../atoms/Logo.vue";
-import Icon from "../atoms/Icon.vue";
+import Logo from "../atoms/Logo.vue"
+import Icon from "../atoms/Icon.vue"
 
 export default {
   name: "NavBar",
   components: {
     Logo,
-    Icon,
+    Icon
   },
 };
 </script>
@@ -37,7 +37,7 @@ export default {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  padding: 20px;
+  padding: 0px 20px;
   align-items: center;
  @extend .max-container;
 
