@@ -1,12 +1,12 @@
 <script>
 import NavBar from "../components/organisms/NavBar.vue";
-import PictureProfile from "../components/atoms/PictureProfile.vue";
+import ProfileName from "../components/molecules/ProfileName.vue";
 
 export default {
   name: "Profile",
   components: {
     NavBar,
-    PictureProfile
+    ProfileName
   },
 };
 </script>
@@ -14,7 +14,7 @@ export default {
 <template>
   <div id="profile">
     <NavBar></NavBar>
-    <PictureProfile src="walter.jpg"></PictureProfile>
+    <ProfileName></ProfileName>
   </div>
 </template>
 

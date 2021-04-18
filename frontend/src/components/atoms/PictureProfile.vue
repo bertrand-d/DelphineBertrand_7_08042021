@@ -22,7 +22,6 @@ export default {
   overflow: hidden;
   
 }
-
 .picture-profile__img {
     @extend .img-size;
 }
