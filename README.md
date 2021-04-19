@@ -27,8 +27,8 @@ Voici les exigences émises par le comité de pilotage :
 - Le ou la chargé-e de communication Groupomania doit pouvoir modérer les interactions entre salariés.
 
 # Technologies utilisées
-Frontend: HTML, CSS, Sass, Vue.js
-Backend : Node, Express, MySQL
+- Frontend: HTML, CSS, Sass, Vue.js
+- Backend : Node, Express, MySQL
 
 # Tester le site en local
 
