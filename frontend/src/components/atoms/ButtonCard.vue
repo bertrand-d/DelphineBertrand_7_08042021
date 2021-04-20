@@ -1,16 +1,19 @@
 <script>
 export default {
   name: "ButtonCard",
-  props: ["text", "url"],
+  props: ["text"],
+  methods: {
+    emitCustomEvent() {
+      this.$emit('click')
+    }
+  }
 };
 </script>
 
 <template>
-  <router-link :to="url">
-    <div class="button-card">
-      <p class="button-card__text">{{ text }}</p>
-    </div>
-  </router-link>
+  <div class="button-card" @click="emitCustomEvent">
+    <p class="button-card__text">{{ text }}</p>
+  </div>
 </template>
 
 <style lang="scss">
@@ -20,6 +23,7 @@ export default {
   border-radius: 0px 0px 20px 20px;
   line-height: 50px;
   transition: background-color ease-in-out 0.25s;
+  cursor: pointer;
 
   &:hover {
     background-color: darken($primary-color, 10%);

@@ -1,12 +1,17 @@
 <script>
   export default {
     name: 'Input',
-    props: ['type', 'name', 'placeholder']
+    props: ['type', 'name', 'placeholder', 'required', 'value'],
+    methods: {
+      updateValue: function (value) {
+        this.$emit('input', value)
+      }
+    }
   }
 </script>
 
 <template>
-    <input class= "input" :type="type" :name="name" :placeholder="placeholder" required/>
+    <input class= "input" :type="type" :name="name" :placeholder="placeholder" :required="required" :value="value" v-on:input="updateValue($event.target.value)"/>
 </template>
 
 <style lang="scss">
