@@ -1,12 +1,12 @@
 <script>
 
-import Login from '../components/organisms/Login.vue'
+import LoginBox from '../components/organisms/LoginBox.vue'
 import Logo from '../components/atoms/Logo.vue'
 
 export default {
   name: 'Home',
   components: {
-    Login,
+    LoginBox,
     Logo
   }
 }
@@ -17,7 +17,7 @@ export default {
     <div class="home__logo">
       <Logo src="icon-above-font.png"></Logo>
     </div>
-      <Login></Login>
+      <LoginBox></LoginBox>
   </div>
 </template>
 

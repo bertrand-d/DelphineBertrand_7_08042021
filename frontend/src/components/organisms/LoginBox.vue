@@ -19,8 +19,10 @@ export default {
   },
   methods: {
     sendPost() {
-      console.log(this.email)
       const postData = { email: this.email, password: this.password };
+      if (this.email.length === 0 || this.password.length === 0) {
+        return console.log("merci de compléter ce champ");
+      }
       axios
         .post("http://localhost:3000/api/auth/login", postData)
         .then((res) => {
@@ -42,6 +44,7 @@ export default {
         required
         v-model="email"
       />
+      <p v-if="email.length===0">Merci de compléter ce champ</p>
       <Input
         class="login__input"
         type="password"
@@ -50,19 +53,7 @@ export default {
         required
         v-model="password"
       />
-      <div class="login__body-container">
-        <TextLink
-          class="login__text-link"
-          url="signin"
-          text="Mot de passe oublié"
-        />
-        <div class="login__spacer"></div>
-        <TextLink
-          class="login__text-link"
-          url="signin"
-          text="Créer un compte"
-        />
-      </div>
+      <TextLink class="login__text-link" url="signin" text="Créer un compte" />
     </div>
     <ButtonCard text="connexion" @click="sendPost()" />
   </div>
@@ -74,29 +65,14 @@ export default {
   border-radius: $border-radius-m;
   box-shadow: $net-shadow;
   background-color: white;
+  text-align: center;
 
   &__body {
     padding: 40px 20px;
   }
 }
 
-.login__body-container {
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-  margin-top: 20px;
-}
-
-.login__spacer {
-  height: 50px;
-  border-right: solid 1px #e6dede;
-}
-
 .login__input {
   margin-bottom: 20px;
-}
-
-.login__text-link {
-  width: 80px;
 }
 </style>
