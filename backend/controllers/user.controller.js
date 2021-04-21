@@ -45,7 +45,6 @@ exports.login = (req, res,) => {
             })
         }
         let userId = results[0].id;
-        console.log(userId)
         return res.status(200).json({
             message: 'utilisateur connecté',
             userId: userId,
