@@ -1,4 +1,5 @@
-// const jwt = require('jsonwebtoken');
+const jwt = require('jsonwebtoken');
+const { createPool } = require('mysql');
 // const bcrypt = require('bcrypt');
 // const { createHmac } = require('crypto');
 // const secret = 'jaimelesponeysetinternetaussi';
@@ -36,15 +37,23 @@ exports.login = (req, res,) => {
         if (error) {
             return res.status(500).json({ error });
         }
+        let user = results;
         if (results.length === 0) {
             return res.status(401).json({
                 error: true,
                 message: 'Le nom d\'utilisateur ou le mdp est invalide'
             })
         }
+        let userId = results[0].id;
+        console.log(userId)
         return res.status(200).json({
             message: 'utilisateur connecté',
-            user: results[0]
+            userId: userId,
+            token: jwt.sign(
+                {userId: userId},
+                'TmURuMzDYt10Vp8aealH',
+                {expiresIn: '24h'}
+            )
         });
     });
 }

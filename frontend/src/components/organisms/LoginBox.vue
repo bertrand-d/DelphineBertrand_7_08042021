@@ -44,7 +44,7 @@ export default {
         required
         v-model="email"
       />
-      <p v-if="email.length===0">Merci de compléter ce champ</p>
+      <p class="login__alert" v-if="email.length===0">Merci de compléter ce champ</p>
       <Input
         class="login__input"
         type="password"
@@ -68,11 +68,11 @@ export default {
   text-align: center;
 
   &__body {
-    padding: 40px 20px;
+    padding: 40px 20px 20px 20px;
   }
-}
 
-.login__input {
-  margin-bottom: 20px;
+  &__input {
+    margin-bottom: 20px;
+  }
 }
 </style>

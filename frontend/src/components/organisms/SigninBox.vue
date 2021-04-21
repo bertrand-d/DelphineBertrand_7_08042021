@@ -23,7 +23,7 @@ export default {
   },
   methods: {
     sendPost() {
-      const postData = { nom: this.nom, prenom: this.prenom, date_naissance: this.date_naissance, ville: this.ville, email: this.email, password: this.password };
+      const postData = {nom: this.nom, prenom: this.prenom, date_naissance: this.date_naissance, ville: this.ville, email: this.email, password: this.password };
       axios
         .post("http://localhost:3000/api/auth/signin", postData)
         .then((res) => {
