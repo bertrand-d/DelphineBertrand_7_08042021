@@ -9,8 +9,8 @@ const sql = require("../models/db.js");
 //modèle utilisateur
 const User = require("../models/user.model.js");
 
+
 exports.signin = (req, res) => {
-    //TODO valider req.body
     // Create User depuis le model
     let newUser = new User(req.body);
     // Inserer le user dans la DB
@@ -21,7 +21,6 @@ exports.signin = (req, res) => {
         // DB ok
         const id = results.insertId;
         newUser.id = id;
-
         return res.status(200).json({
             message: 'utilisateur créé',
             user: newUser
@@ -29,7 +28,7 @@ exports.signin = (req, res) => {
     });
 };
 
-//login ci dessous
+//login
 exports.login = (req, res,) => {
     let userEmail = req.body.email;
     let userPassword = req.body.password;
@@ -37,7 +36,6 @@ exports.login = (req, res,) => {
         if (error) {
             return res.status(500).json({ error });
         }
-        let user = results;
         if (results.length === 0) {
             return res.status(401).json({
                 error: true,
@@ -54,5 +52,19 @@ exports.login = (req, res,) => {
                 {expiresIn: '24h'}
             )
         });
+    });
+}
+
+//chargement du profil utilisateur
+exports.profile = (req, res,) => {
+    const userId = req.params.id;
+    sql.query('SELECT id, nom, prenom, ville, date_naissance FROM user WHERE id=?', userId, function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        } else if (results.length === 0) {
+            return res.status(401).json({message: 'utilisateur inexistant'});
+        } else {
+            return res.status(200).json({user: results[0]});
+        }
     });
 }
