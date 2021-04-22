@@ -13,21 +13,75 @@ export default {
   },
   data: function () {
     return {
+      errors: {
+        emptyEmail: false,
+        emptyPassword: false,
+        badValueEmail: false,
+        badValuePassword: false,
+      },
       nom: "",
       prenom: "",
-      date_naissance:"",
+      date_naissance: "",
       ville: "",
       email: "",
       password: "",
     };
   },
   methods: {
+    checkEmail(email) {
+      let re = /^(([^<>()[]\.,;:s@]+(.[^<>()[]\.,;:s@]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
+      return re.test(email);
+    },
+    checkPassword(password) {
+      let re = /[a-zA-Z0-9]{8}/;
+      return re.test(password);
+    },
+    isFormError() {
+      if (this.email.length === 0) {
+        this.errors.emptyEmail = true;
+      } else {
+        this.errors.emptyEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
+      }
+
+      if (this.checkEmail(this.email) === false) {
+        this.errors.badValueEmail = true;
+      } else {
+        this.errors.badValueEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
+      }
+
+      if (this.password.length === 0) {
+        this.errors.emptyPassword = true;
+      } else {
+        this.errors.emptyPassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
+      }
+
+      if (this.checkPassword(this.password) === false) {
+        this.errors.badValuePassword = true;
+      } else {
+        this.errors.badValuePassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
+      }
+
+      if (
+        this.errors.emptyEmail ||
+        this.errors.emptyPassword ||
+        this.errors.badValueEmail ||
+        this.errors.badValuePassword
+      ) {
+        console.log("erreur dans le login");
+        return true;
+      }
+      return false;
+    },
     sendPost() {
-      const postData = {nom: this.nom, prenom: this.prenom, date_naissance: this.date_naissance, ville: this.ville, email: this.email, password: this.password };
+      if (this.isFormError() === true) {
+        return;
+      }
+      const postData = { email: this.email, password: this.password };
+
       axios
         .post("http://localhost:3000/api/auth/signin", postData)
-        .then((res) => {
-          console.log(res.body);
+        .then(function (response) {
+          console.log(response);
         });
     },
   },
@@ -81,6 +135,12 @@ export default {
             required
             v-model="email"
           />
+          <p class="signin__alert" v-if="errors.emptyEmail">
+            * Merci de compléter ce champ
+          </p>
+          <p class="signin__alert" v-else-if="errors.badValueEmail">
+            * Merci de renseigner une adresse mail valide
+          </p>
           <Input
             class="signin__input"
             type="password"
@@ -91,9 +151,7 @@ export default {
           />
         </div>
       </div>
-      <div class="signin__body-text-link-container">
-        <TextLink url="/" text="J'ai déjà un compte" />
-      </div>
+      <TextLink class="signin__text-link" url="/" text="J'ai déjà un compte" />
     </div>
     <ButtonCard text="inscription" @click="sendPost()" />
   </div>
@@ -108,28 +166,35 @@ export default {
   text-align: center;
 
   &__body {
-    padding: 40px 20px;
+    padding: 40px 20px 20px 20px;
     margin-right: -20px;
   }
-}
 
-.signin__body-container {
-  display: flex;
-  flex-wrap: wrap;
-}
+  &__body-container {
+    display: flex;
+    flex-wrap: wrap;
+  }
 
-.signin__body-input-container {
-  margin-right: 20px;
-  flex-grow: 1;
-  flex-basis: 0;
-  min-width: 150px;
-}
+  &__body-input-container {
+    margin-right: 20px;
+    flex-grow: 1;
+    flex-basis: 0;
+    min-width: 150px;
+  }
 
-.signin__input {
-  margin-bottom: 20px;
-}
+  &__input {
+    margin-bottom: 20px;
+  }
 
-.signin__body-text-link-container {
-  margin-top: 20px;
+  &__text-link {
+    margin-right: 20px;
+  }
+
+  &__alert {
+    @extend .alert-msg;
+    position: relative;
+    margin-top: -15px;
+    margin-bottom: 20px;
+  }
 }
 </style>

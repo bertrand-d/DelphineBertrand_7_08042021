@@ -1,4 +1,6 @@
 <script>
+
+//composants
 import NavBar from "../components/organisms/NavBar.vue";
 import ProfileName from "../components/molecules/ProfileName.vue";
 import Button from "../components/atoms/Button.vue";
@@ -8,8 +10,14 @@ export default {
   components: {
     NavBar,
     ProfileName,
-    Button
+    Button,
   },
+  data: function () {
+    return {
+      email: "",
+      password: "",
+    };
+  }
 };
 </script>
 
@@ -17,8 +25,8 @@ export default {
   <div id="profile">
     <NavBar></NavBar>
     <div class="profile__container">
-      <ProfileName text="Walter"></ProfileName>
-      <Button text="Supprimer"></Button>
+      <ProfileName class="profile__name" text="Walter"></ProfileName>
+      <Button class="profile__button" text="Supprimer mon profil"></Button>
     </div>
   </div>
 </template>
@@ -26,9 +34,17 @@ export default {
 <style lang='scss'>
 .profile__container {
   @extend .max-container;
+  display: flex;
+  flex-wrap: wrap;
   margin-top: 50px;
   padding: 20px 60px;
   border-radius: 20px;
-  background-color:white;
+  background-color: white;
+  align-items: center;
+}
+
+.profile__name,
+.profile__button {
+  flex-grow: 1;
 }
 </style>
