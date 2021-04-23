@@ -1,8 +1,8 @@
 <script>
-
+const axios = require("axios").default;
 //composants
 import NavBar from "../components/organisms/NavBar.vue";
-import ProfileName from "../components/molecules/ProfileName.vue";
+import ProfileName from "../components/molecules/ProfileInfo.vue";
 import Button from "../components/atoms/Button.vue";
 
 export default {
@@ -16,7 +16,15 @@ export default {
     return {
       email: "",
       password: "",
-    };
+    }
+  },
+  mounted() {
+    const param = sessionStorage.getItem('userId');
+    const userId = param.replace('?id=', '');
+
+    axios
+      .get('http://localhost:3000/api/auth/profile/' + userId)
+      .then(response => (this.info = response))
   }
 };
 </script>
@@ -46,5 +54,9 @@ export default {
 .profile__name,
 .profile__button {
   flex-grow: 1;
+}
+
+.profile__button {
+  min-width: 250px;
 }
 </style>

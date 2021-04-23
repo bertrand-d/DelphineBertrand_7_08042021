@@ -4,6 +4,7 @@ const axios = require("axios").default;
 import ButtonCard from "../atoms/ButtonCard.vue";
 import Input from "../atoms/Input.vue";
 import TextLink from "../atoms/TextLink.vue";
+import router from '../../router/index.js'
 
 export default {
   name: "Login",
@@ -73,8 +74,13 @@ export default {
       axios
         .post("http://localhost:3000/api/auth/login", postData)
         .then(function (response) {
+          sessionStorage.setItem('userId', response.data.userId);
           console.log(response);
         });
+
+      //redirection vers le profil utilisateur
+      const userId = sessionStorage.getItem('userId');
+      router.push({name: 'Profile', params: { id: userId}});
     },
   },
 };

@@ -20,7 +20,7 @@ export default new Router({
         component: Signin
     },
     {
-        path: '/profile',
+        path: '/profile/:id',
         name: 'Profile',
         component: Profile
     }
