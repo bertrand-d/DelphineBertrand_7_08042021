@@ -14,7 +14,7 @@ export default {
   },
   data: function () {
     return {
-      user :null,
+      user: {},
       email: "",
       password: "",
     };
@@ -25,6 +25,7 @@ export default {
       .get("http://localhost:3000/api/auth/profile/" + userId)
       .then((response) => {
         this.user = response.data.user;
+        console.log('this', this.user)
       });
   },
 };
@@ -37,13 +38,11 @@ export default {
       <div class="profile-information__container">
         <PictureProfile class="profile__img" src="walter.jpg"></PictureProfile>
         <div class="profile-text__container">
-          <p class="profile-text__text">
-            {{ user.nom }}
-          </p>
+          <p class="profile-text__text">{{ user.prenom + " " + user.nom }}</p>
           <div class="profile-text__spacer"></div>
-          <p class="profile-text__text">test</p>
+          <p class="profile-text__text">{{ user.age }} ans</p>
           <div class="profile-text__spacer"></div>
-          <p class="profile-text__text">test</p>
+          <p class="profile-text__text">{{ user.ville }}</p>
         </div>
       </div>
       <Button class="profile__button" text="Supprimer mon profil"></Button>
@@ -69,6 +68,7 @@ export default {
 
   &__button {
     flex-grow: 1;
+    flex-basis: 0;
     min-width: 250px;
   }
 }
@@ -83,6 +83,10 @@ export default {
 .profile-text__container {
   margin: auto;
   text-align: center;
+}
+
+.profile-text__text {
+  text-transform: capitalize;
 }
 
 .profile-text__spacer {

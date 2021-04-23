@@ -1,34 +1,39 @@
 <script>
-import Logo from "../atoms/Logo.vue"
-import Icon from "../atoms/Icon.vue"
+import Logo from "../atoms/Logo.vue";
+import Icon from "../atoms/Icon.vue";
 
 export default {
   name: "NavBar",
   components: {
     Logo,
-    Icon
+    Icon,
   },
 };
 </script>
 
 <template>
-<div class="navbar-background">
-  <nav class="navbar">
-    <div class="navbar__logo-container">
-      <Logo src="icon-left-font.png"></Logo>
-    </div>
-    <ul class="navbar__list">
-      <li class="navbar__list__icon">
-        <Icon class="far fa-comment-alt"></Icon>
-      </li>
-      <li class="navbar__list__icon"><Icon class="far fa-user"></Icon></li>
-    </ul>
-  </nav>
-</div>
+  <div class="navbar-background">
+    <nav class="navbar">
+      <div class="navbar__logo-container">
+        <router-link to="/" exact><Logo src="icon-left-font.png"></Logo></router-link>
+      </div>
+      <ul class="navbar__list">
+        <li class="navbar__list__icon">
+          <router-link to="/profile/:id"
+            ><Icon class="far fa-comment-alt"></Icon
+          ></router-link>
+        </li>
+        <li class="navbar__list__icon">
+          <router-link to="/profile/:id"
+            ><Icon class="far fa-user"></Icon
+          ></router-link>
+        </li>
+      </ul>
+    </nav>
+  </div>
 </template>
 
 <style lang="scss">
-
 .navbar-background {
   background-color: $secondary-color;
 }
@@ -39,7 +44,7 @@ export default {
   justify-content: space-between;
   padding: 0px 20px;
   align-items: center;
- @extend .max-container;
+  @extend .max-container;
 
   &__logo-container {
     max-width: 230px;

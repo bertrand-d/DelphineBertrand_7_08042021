@@ -58,7 +58,7 @@ exports.login = (req, res,) => {
 //chargement du profil utilisateur
 exports.profile = (req, res,) => {
     const userId = req.params.id;
-    sql.query('SELECT id, nom, prenom, ville, date_naissance FROM user WHERE id=?', userId, function (error, results, fields) {
+    sql.query('SELECT id, nom, prenom, ville, TIMESTAMPDIFF(YEAR, date_naissance, CURDATE()) AS age FROM user WHERE id=?', userId, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {
