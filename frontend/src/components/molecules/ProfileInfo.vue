@@ -1,12 +1,19 @@
 <script>
+const axios = require("axios").default;
 import PictureProfile from "../atoms/PictureProfile.vue";
 
 export default {
-  name: "ProfileName",
+  name: "ProfileInfo",
   components: {
     PictureProfile,
   },
-  props: ['text']
+  props: ['text'],
+  mounted() {
+    const userId = sessionStorage.getItem('userId');
+    axios
+      .get('http://localhost:3000/api/auth/profile/' + userId)
+      .then(response => (this.info = response))
+  }
 };
 </script>
 

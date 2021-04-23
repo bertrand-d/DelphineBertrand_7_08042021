@@ -4,7 +4,9 @@ const axios = require("axios").default;
 import ButtonCard from "../atoms/ButtonCard.vue";
 import Input from "../atoms/Input.vue";
 import TextLink from "../atoms/TextLink.vue";
-import router from '../../router/index.js'
+import router from '../../router/index.js';
+
+import validateInput from '../../utils/validateInput.js'
 
 export default {
   name: "Login",
@@ -26,34 +28,26 @@ export default {
     };
   },
   methods: {
-    checkEmail(email) {
-      let re = /^(([^<>()[]\.,;:s@]+(.[^<>()[]\.,;:s@]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    },
-    checkPassword(password) {
-      let re = /[a-zA-Z0-9]{8}/;
-      return re.test(password);
-    },
     isFormError() {
-      if (this.email.length === 0) {
+      if (!this.email) {
         this.errors.emptyEmail = true;
       } else {
         this.errors.emptyEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
       
-      if (this.checkEmail(this.email) === false) {
+      if (!validateInput.checkEmail(this.email)) {
         this.errors.badValueEmail = true;
       } else {
         this.errors.badValueEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.password.length === 0) {
+      if (!this.password) {
         this.errors.emptyPassword = true;
       } else {
         this.errors.emptyPassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.checkPassword(this.password) === false) {
+      if (!validateInput.checkPassword(this.password)) {
         this.errors.badValuePassword = true;
       } else {
         this.errors.badValuePassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
@@ -66,7 +60,7 @@ export default {
       return false;
     },
     sendPost() {
-      if (this.isFormError() === true) {
+      if (this.isFormError()) {
         return;
       }
       const postData = { email: this.email, password: this.password };
@@ -80,7 +74,7 @@ export default {
 
       //redirection vers le profil utilisateur
       const userId = sessionStorage.getItem('userId');
-      router.push({name: 'Profile', params: { id: userId}});
+      router.push({name: 'Profile', params: {id: userId}});
     },
   },
 };
