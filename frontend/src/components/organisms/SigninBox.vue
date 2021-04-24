@@ -1,8 +1,13 @@
 <script>
 const axios = require("axios").default;
+//composant
 import ButtonCard from "../atoms/ButtonCard.vue";
 import Input from "../atoms/Input.vue";
 import TextLink from "../atoms/TextLink.vue";
+//fonction générique
+import validateInput from "../../utils/validateInput.js";
+//routeur
+import router from "../../router/index.js";
 
 export default {
   name: "SigninBox",
@@ -18,6 +23,7 @@ export default {
         emptyPassword: false,
         badValueEmail: false,
         badValuePassword: false,
+        onlyLetters: false,
       },
       nom: "",
       prenom: "",
@@ -27,35 +33,32 @@ export default {
       password: "",
     };
   },
+  mounted() {
+    window.setValue = function (val) {
+      document.querySelector("#placeholder-date").value = val;
+    }; //fonction permettant de récupérer la valeur du placeholder de la date de naissance
+  },
   methods: {
-    checkEmail(email) {
-      let re = /^(([^<>()[]\.,;:s@]+(.[^<>()[]\.,;:s@]+)*)|(.+))@(([[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}.[0-9]{1,3}])|(([a-zA-Z-0-9]+.)+[a-zA-Z]{2,}))$/;
-      return re.test(email);
-    },
-    checkPassword(password) {
-      let re = /[a-zA-Z0-9]{8}/;
-      return re.test(password);
-    },
     isFormError() {
-      if (this.email.length === 0) {
+      if (!this.email) {
         this.errors.emptyEmail = true;
       } else {
         this.errors.emptyEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.checkEmail(this.email) === false) {
+      if (!validateInput.checkEmail(this.email)) {
         this.errors.badValueEmail = true;
       } else {
         this.errors.badValueEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.password.length === 0) {
+      if (!this.password) {
         this.errors.emptyPassword = true;
       } else {
         this.errors.emptyPassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.checkPassword(this.password) === false) {
+      if (!validateInput.checkPassword(this.password)) {
         this.errors.badValuePassword = true;
       } else {
         this.errors.badValuePassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
@@ -83,6 +86,8 @@ export default {
         .then(function (response) {
           console.log(response);
         });
+      //redirection vers le login
+      router.push("Home");
     },
   },
 };
@@ -109,14 +114,22 @@ export default {
             required
             v-model="prenom"
           />
-          <Input
-            class="signin__input"
-            type="text"
-            name="date-of-birth"
-            placeholder="Date de naissance"
-            required
-            v-model="date_naissance"
-          />
+
+          <div class="signin__input-date-container">
+            <Input
+              class="signin__input-date"
+              type="date"
+              name="date-of-birth"
+              v-model="date_naissance"
+              onblur="window.setValue(this.value)"
+            />
+            <Input
+              class="placeholder-date signin__input-date"
+              id="placeholder-date"
+              value="Date de naissance"
+              type="text"
+            />
+          </div>
         </div>
         <div class="signin__body-input-container">
           <Input
@@ -158,6 +171,30 @@ export default {
 </template>
 
 <style lang="scss">
+.signin__input-date-container {
+  position: relative;
+}
+.signin__input-date {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+}
+.signin__input-date[type="date"],
+.signin__input-date[type="date"]:focus {
+  z-index: 1;
+  color: transparent;
+  background: transparent;
+  border: none;
+}
+.signin__input-date[type="date"]:focus {
+  z-index: 1;
+  color: black;
+}
+.signin__input-date[type="date"]:focus + .placeholder-date {
+  display: none;
+}
+
 .signin {
   max-width: 650px;
   border-radius: $border-radius-m;

@@ -4,9 +4,10 @@ const axios = require("axios").default;
 import ButtonCard from "../atoms/ButtonCard.vue";
 import Input from "../atoms/Input.vue";
 import TextLink from "../atoms/TextLink.vue";
-import router from '../../router/index.js';
-
-import validateInput from '../../utils/validateInput.js'
+//routeur
+import router from "../../router/index.js";
+//fonction générique
+import validateInput from "../../utils/validateInput.js";
 
 export default {
   name: "Login",
@@ -21,7 +22,7 @@ export default {
         emptyEmail: false,
         emptyPassword: false,
         badValueEmail: false,
-        badValuePassword: false
+        badValuePassword: false,
       },
       email: "",
       password: "",
@@ -34,7 +35,7 @@ export default {
       } else {
         this.errors.emptyEmail = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
-      
+
       if (!validateInput.checkEmail(this.email)) {
         this.errors.badValueEmail = true;
       } else {
@@ -53,8 +54,13 @@ export default {
         this.errors.badValuePassword = false; //permet d'enlever le message d'erreur si l'utilisateur corrige le champ
       }
 
-      if (this.errors.emptyEmail || this.errors.emptyPassword || this.errors.badValueEmail || this.errors.badValuePassword) {
-        console.log('erreur dans le login');
+      if (
+        this.errors.emptyEmail ||
+        this.errors.emptyPassword ||
+        this.errors.badValueEmail ||
+        this.errors.badValuePassword
+      ) {
+        console.log("erreur dans le login");
         return true;
       }
       return false;
@@ -68,13 +74,13 @@ export default {
       axios
         .post("http://localhost:3000/api/auth/login", postData)
         .then(function (response) {
-          sessionStorage.setItem('userId', response.data.userId);
+          sessionStorage.setItem("userId", response.data.userId);
           console.log(response);
         });
 
       //redirection vers le profil utilisateur
-      const userId = sessionStorage.getItem('userId');
-      router.push({name: 'Profile', params: {id: userId}});
+      const userId = sessionStorage.getItem("userId");
+      router.push({ name: "Profile", params: { id: userId } });
     },
   },
 };
@@ -108,7 +114,7 @@ export default {
       <p class="login__alert" v-if="errors.emptyPassword">
         * Merci de compléter ce champ
       </p>
-       <p class="login__alert" v-else-if="errors.badValuePassword">
+      <p class="login__alert" v-else-if="errors.badValuePassword">
         * Merci de renseigner un mot de passe contenant 8 caractères
       </p>
       <TextLink class="login__text-link" url="signin" text="Créer un compte" />
