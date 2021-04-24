@@ -11,9 +11,9 @@ export default {
 </script>
 
 <template>
-    <div class="button" @click="emitCustomEvent">
-      <p class="button__text">{{ text }}</p>
-    </div>
+    <button class="button" @click.prevent="emitCustomEvent">
+      <span class="button__text">{{ text }}</span>
+    </button>
 </template>
 
 <style lang="scss">

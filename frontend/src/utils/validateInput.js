@@ -9,6 +9,11 @@ exports.checkEmail = (email) => {
 }
 
 exports.checkOnlyLetters = (value) => {
-    let re = /[a-zA-Z]{2,70}/;
+    let re = /^[a-zA-ZáàâäãåçéèêëíìîïñóòôöõúùûüýÿæœÁÀÂÄÃÅÇÉÈÊËÍÌÎÏÑÓÒÔÖÕÚÙÛÜÝŸÆŒ]{2,70}$/;
+    return re.test(value);
+}
+
+exports.checkDate = (value) => {
+    let re = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     return re.test(value);
 }

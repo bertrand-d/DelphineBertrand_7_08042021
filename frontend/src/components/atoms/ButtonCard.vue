@@ -11,9 +11,9 @@ export default {
 </script>
 
 <template>
-  <div class="button-card" @click="emitCustomEvent">
-    <p class="button-card__text">{{ text }}</p>
-  </div>
+  <button class="button-card" @click.prevent="emitCustomEvent">
+    <span class="button-card__text">{{ text }}</span>
+  </button>
 </template>
 
 <style lang="scss">
@@ -23,7 +23,6 @@ export default {
   border-radius: 0px 0px 20px 20px;
   line-height: 50px;
   transition: background-color ease-in-out 0.25s;
-  cursor: pointer;
 
   &:hover {
     background-color: darken($primary-color, 10%);

@@ -23,6 +23,8 @@ export default {
         emptyPassword: false,
         badValueEmail: false,
         badValuePassword: false,
+        unauthorized: false,
+        unknown: false,
       },
       email: "",
       password: "",
@@ -69,25 +71,33 @@ export default {
       if (this.isFormError()) {
         return;
       }
+      this.errors.unauthorized = false;
+      this.errors.unknown = false;
       const postData = { email: this.email, password: this.password };
 
       axios
         .post("http://localhost:3000/api/auth/login", postData)
         .then(function (response) {
           sessionStorage.setItem("userId", response.data.userId);
-          console.log(response);
+          console.log("response,", response);
+          //redirection vers le profil utilisateur
+          const userId = sessionStorage.getItem("userId");
+          router.push({ name: "Profile", params: { id: userId } });
+        })
+        .catch((error) => {
+          if (error.response.status === 401) {
+            this.errors.unauthorized = true;
+          } else {
+            this.errors.unknown = true;
+          }
         });
-
-      //redirection vers le profil utilisateur
-      const userId = sessionStorage.getItem("userId");
-      router.push({ name: "Profile", params: { id: userId } });
     },
   },
 };
 </script>
 
 <template>
-  <div class="login">
+  <form class="login">
     <div class="login__body">
       <Input
         class="login__input"
@@ -117,10 +127,16 @@ export default {
       <p class="login__alert" v-else-if="errors.badValuePassword">
         * Merci de renseigner un mot de passe contenant 8 caractères
       </p>
+      <p class="login__alert" v-if="errors.unauthorized">
+        * Email ou mot de passe invalide
+      </p>
+      <p class="login__alert" v-if="errors.unknown">
+        * Une erreur est survenue, merci de réessayer plus tard
+      </p>
       <TextLink class="login__text-link" url="signin" text="Créer un compte" />
     </div>
-    <ButtonCard text="connexion" @click="sendPost()" />
-  </div>
+    <ButtonCard text="connexion" type="submit" @click="sendPost()" />
+  </form>
 </template>
 
 <style lang="scss">
