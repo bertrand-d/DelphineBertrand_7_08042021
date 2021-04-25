@@ -100,40 +100,40 @@ export default {
   <form class="login">
     <div class="login__body">
       <Input
-        class="login__input"
+        class="login__body__input"
         type="email"
         name="email"
         placeholder="E-mail"
         required
         v-model="email"
       />
-      <p class="login__alert" v-if="errors.emptyEmail">
+      <p class="login__body__alert" v-if="errors.emptyEmail">
         * Merci de compléter ce champ
       </p>
-      <p class="login__alert" v-else-if="errors.badValueEmail">
+      <p class="login__body__alert" v-else-if="errors.badValueEmail">
         * Merci de renseigner une adresse mail valide
       </p>
       <Input
-        class="login__input"
+        class="login__body__input"
         type="password"
         name="password"
         placeholder="Mot de passe"
         required
         v-model="password"
       />
-      <p class="login__alert" v-if="errors.emptyPassword">
+      <p class="login__body__alert" v-if="errors.emptyPassword">
         * Merci de compléter ce champ
       </p>
-      <p class="login__alert" v-else-if="errors.badValuePassword">
+      <p class="login__body__alert" v-else-if="errors.badValuePassword">
         * Merci de renseigner un mot de passe contenant 8 caractères
       </p>
-      <p class="login__alert" v-if="errors.unauthorized">
+      <p class="login__body__alert" v-if="errors.unauthorized">
         * Email ou mot de passe invalide
       </p>
-      <p class="login__alert" v-if="errors.unknown">
+      <p class="login__body__alert" v-if="errors.unknown">
         * Une erreur est survenue, merci de réessayer plus tard
       </p>
-      <TextLink class="login__text-link" url="signin" text="Créer un compte" />
+      <TextLink url="signin" text="Créer un compte" />
     </div>
     <ButtonCard text="connexion" type="submit" @click="sendPost()" />
   </form>
@@ -149,17 +149,17 @@ export default {
 
   &__body {
     padding: 40px 20px 20px 20px;
-  }
 
-  &__input {
-    margin-bottom: 20px;
-  }
+    &__input {
+      margin-bottom: 20px;
+    }
 
-  &__alert {
-    @extend .alert-msg;
-    position: relative;
-    margin-top: -15px;
-    margin-bottom: 20px;
+    &__alert {
+      @extend .alert-msg;
+      position: relative;
+      margin-top: -15px;
+      margin-bottom: 20px;
+    }
   }
 }
 </style>

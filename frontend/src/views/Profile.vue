@@ -25,27 +25,35 @@ export default {
       .get("http://localhost:3000/api/auth/profile/" + userId)
       .then((response) => {
         this.user = response.data.user;
-        console.log('this', this.user)
+        console.log("this", this.user);
       });
   },
 };
 </script>
 
 <template>
-  <div id="profileView">
+  <div id="profile-view">
     <NavBar></NavBar>
     <section class="profile">
-      <div class="profile-information__container">
-        <PictureProfile class="profile__img" src="walter.jpg"></PictureProfile>
-        <div class="profile-text__container">
-          <p class="profile-text__text">{{ user.prenom + " " + user.nom }}</p>
-          <div class="profile-text__spacer"></div>
-          <p class="profile-text__text">{{ user.age }} ans</p>
-          <div class="profile-text__spacer"></div>
-          <p class="profile-text__text">{{ user.ville }}</p>
+      <div class="profile-information">
+        <PictureProfile
+          class="profile-information__img"
+          src="walter.jpg"
+        ></PictureProfile>
+        <div class="profile-information__user">
+          <p class="profile-information__user__text">
+            {{ user.prenom + " " + user.nom }}
+          </p>
+          <div class="profile-information__user__spacer"></div>
+          <p class="profile-information__user__text">{{ user.age }} ans</p>
+          <div class="profile-information__user__spacer"></div>
+          <p class="profile-information__user__text">{{ user.ville }}</p>
         </div>
       </div>
-      <Button class="profile__button" text="Supprimer mon profil"></Button>
+      <div class="profile__action">
+        <Button class="profile__button--edit" text="Editer mon profil"></Button>
+        <Button class="profile__button" text="Supprimer mon profil"></Button>
+      </div>
     </section>
   </div>
 </template>
@@ -61,11 +69,6 @@ export default {
   background-color: white;
   align-items: center;
 
-  &__img {
-    width: 250px;
-    height: 250px;
-  }
-
   &__button {
     flex-grow: 1;
     flex-basis: 0;
@@ -73,26 +76,31 @@ export default {
   }
 }
 
-.profile-information__container {
+.profile-information {
   display: flex;
   flex-wrap: wrap;
   align-items: center;
   flex-grow: 1;
+
+  &__img {
+    width: 250px;
+    height: 250px;
+  }
 }
 
-.profile-text__container {
+.profile-information__user {
   margin: auto;
   text-align: center;
-}
 
-.profile-text__text {
-  text-transform: capitalize;
-}
+  &__text {
+    text-transform: capitalize;
+  }
 
-.profile-text__spacer {
-  width: 0;
-  margin: 10px auto;
-  height: 25px;
-  border-right: solid 1px black;
+  &__spacer {
+    width: 0;
+    margin: 10px auto;
+    height: 25px;
+    border-right: solid 1px black;
+  }
 }
 </style>

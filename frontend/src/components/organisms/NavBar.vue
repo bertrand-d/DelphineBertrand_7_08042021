@@ -14,8 +14,10 @@ export default {
 <template>
   <div class="navbar-background">
     <nav class="navbar">
-      <div class="navbar__logo-container">
-        <router-link to="/" exact><Logo src="icon-left-font.png"></Logo></router-link>
+      <div class="navbar__logo">
+        <router-link to="/" exact
+          ><Logo src="icon-left-font.png"></Logo
+        ></router-link>
       </div>
       <ul class="navbar__list">
         <li class="navbar__list__icon">
@@ -46,7 +48,7 @@ export default {
   align-items: center;
   @extend .max-container;
 
-  &__logo-container {
+  &__logo {
     max-width: 230px;
   }
 
