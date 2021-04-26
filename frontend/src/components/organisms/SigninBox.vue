@@ -167,41 +167,41 @@ export default {
 <template>
   <form class="signin">
     <div class="signin__body">
-      <div class="signin__body-container">
-        <div class="signin__body-input-container">
+      <div class="signin__body__input-container">
+        <div class="signin__body__input-column">
           <Input
-            class="signin__input"
+            class="signin__body__input"
             type="text"
             name="nom"
             placeholder="Nom"
             required
             v-model="nom"
           />
-          <p class="signin__alert" v-if="errors.emptyNom">
+          <p class="signin__body__alert" v-if="errors.emptyNom">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValueNom">
+          <p class="signin__body__alert" v-else-if="errors.badValueNom">
             * Merci de renseigner un nom valide
           </p>
           <Input
-            class="signin__input"
+            class="signin__body__input"
             type="text"
             name="prenom"
             placeholder="Prénom"
             required
             v-model="prenom"
           />
-          <p class="signin__alert" v-if="errors.emptyPrenom">
+          <p class="signin__body__alert" v-if="errors.emptyPrenom">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValuePrenom">
+          <p class="signin__body__alert" v-else-if="errors.badValuePrenom">
             * Merci de renseigner un prénom valide
           </p>
 
-          <div class="signin__input-date-container">
+          <div class="signin__body__input-date-container">
             <!--This div contain hack for the input date of birth-->
             <Input
-              class="signin__input-date"
+              class="signin__body__input-date"
               type="date"
               name="date-of-birth"
               v-model="date_naissance"
@@ -214,60 +214,64 @@ export default {
               type="text"
             />
           </div>
-          <p class="signin__alert" v-if="errors.emptyDate">
+          <p class="signin__body__alert" v-if="errors.emptyDate">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValueDate">
+          <p class="signin__body__alert" v-else-if="errors.badValueDate">
             * Merci de renseigner une date de naissance valide
           </p>
         </div>
-        <div class="signin__body-input-container">
+        <div class="signin__body__input-column">
           <Input
-            class="signin__input"
+            class="signin__body__input"
             type="text"
             name="ville"
             placeholder="Ville"
             required
             v-model="ville"
           />
-          <p class="signin__alert" v-if="errors.emptyVille">
+          <p class="signin__body__alert" v-if="errors.emptyVille">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValueVille">
+          <p class="signin__body__alert" v-else-if="errors.badValueVille">
             * Merci de renseigner une ville valide
           </p>
           <Input
-            class="signin__input"
+            class="signin__body__input"
             type="email"
             name="email"
             placeholder="Email"
             required
             v-model="email"
           />
-          <p class="signin__alert" v-if="errors.emptyEmail">
+          <p class="signin__body__alert" v-if="errors.emptyEmail">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValueEmail">
+          <p class="signin__body__alert" v-else-if="errors.badValueEmail">
             * Merci de renseigner une adresse mail valide
           </p>
           <Input
-            class="signin__input"
+            class="signin__body__input"
             type="password"
             name="password"
             placeholder="Mot de passe"
             required
             v-model="password"
           />
-          <p class="signin__alert" v-if="errors.emptyPassword">
+          <p class="signin__body__alert" v-if="errors.emptyPassword">
             * Merci de compléter ce champ
           </p>
-          <p class="signin__alert" v-else-if="errors.badValuePassword">
+          <p class="signin__body__alert" v-else-if="errors.badValuePassword">
             * Merci de renseigner un mot de passe de 8 caractères, ne contenant
             que des lettres et / ou des chiffres
           </p>
         </div>
       </div>
-      <TextLink class="signin__text-link" url="/" text="J'ai déjà un compte" />
+      <TextLink
+        class="signin__body__text-link"
+        url="/"
+        text="J'ai déjà un compte"
+      />
     </div>
     <ButtonCard text="inscription" type="submit" @click="sendPost()" />
   </form>
@@ -284,59 +288,59 @@ export default {
   &__body {
     padding: 40px 20px 20px 20px;
     margin-right: -20px;
-  }
 
-  &__body-container {
-    display: flex;
-    flex-wrap: wrap;
-  }
+    &__input-container {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-  &__body-input-container {
-    margin-right: 20px;
-    flex-grow: 1;
-    flex-basis: 0;
-    min-width: 150px;
-  }
+    &__input-column {
+      margin-right: 20px;
+      flex-grow: 1;
+      flex-basis: 0;
+      min-width: 150px;
+    }
 
-  &__input {
-    margin-bottom: 20px;
-  }
+    &__input {
+      margin-bottom: 20px;
+    }
 
-  &__text-link {
-    margin-right: 20px;
-  }
+    &__text-link {
+      margin-right: 20px;
+    }
 
-  &__alert {
-    @extend .alert-msg;
-    position: relative;
-    margin-top: -15px;
-    margin-bottom: 20px;
+    &__alert {
+      @extend .alert-msg;
+      position: relative;
+      margin-top: -15px;
+      margin-bottom: 20px;
+    }
   }
 }
 
 //========== hack for input date of birth ===========
-.signin__input-date-container {
+.signin__body__input-date-container {
   position: relative;
   height: 60px; //this height allow to align alert message to other messages
 }
-.signin__input-date {
+.signin__body__input-date {
   position: absolute;
   top: 0;
   left: 0;
   width: 100%;
 }
-.signin__input-date[type="date"],
-.signin__input-date[type="date"]:focus {
+.signin__body__input-date[type="date"],
+.signin__body__input-date[type="date"]:focus {
   z-index: 1;
   color: transparent;
   background: transparent;
   border: none;
 }
-.signin__input-date[type="date"]:focus {
+.signin__body__input-date[type="date"]:focus {
   z-index: 1;
   color: black;
 }
-.signin__input-date[type="date"]:focus + .placeholder-date {
+.signin__body__input-date[type="date"]:focus + .placeholder-date {
   display: none;
 }
 //===========end===========
