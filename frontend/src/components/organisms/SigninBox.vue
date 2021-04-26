@@ -299,31 +299,4 @@ export default {
     }
   }
 }
-
-//========== hack for input date of birth ===========
-.signin__body__input-date-container {
-  position: relative;
-  height: 60px; //this height allow to align alert message to other messages
-}
-.signin__body__input-date {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-}
-.signin__body__input-date[type="date"],
-.signin__body__input-date[type="date"]:focus {
-  z-index: 1;
-  color: transparent;
-  background: transparent;
-  border: none;
-}
-.signin__body__input-date[type="date"]:focus {
-  z-index: 1;
-  color: black;
-}
-.signin__body__input-date[type="date"]:focus + .placeholder-date {
-  display: none;
-}
-//===========end===========
 </style>
