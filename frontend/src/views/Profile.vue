@@ -5,6 +5,7 @@ import PictureProfile from "../components/atoms/PictureProfile.vue";
 import NavBar from "../components/organisms/NavBar.vue";
 import Button from "../components/atoms/Button.vue";
 import Input from "../components/atoms/Input.vue";
+import InputDate from "../components/atoms/InputDate.vue";
 
 export default {
   name: "Profile",
@@ -13,11 +14,14 @@ export default {
     PictureProfile,
     Button,
     Input,
+    InputDate,
   },
   data: function () {
     return {
       modes: {
         read: true,
+        readButton: true,
+        editButton: true,
         edit: false,
         delete: false,
       },
@@ -43,10 +47,20 @@ export default {
     editMode() {
       this.modes.read = false;
       this.modes.edit = true;
+      this.modes.readButton = false;
+      this.modes.editButton = false;
+    },
+    deleteMode() {
+      this.modes.delete = true;
+      this.modes.readButton = false;
+      this.modes.editButton = false;
     },
     abort() {
       this.modes.read = true;
       this.modes.edit = false;
+      this.modes.delete = false;
+      this.modes.readButton = true;
+      this.modes.editButton = true;
     },
   },
 };
@@ -65,44 +79,32 @@ export default {
           <p v-if="modes.read" class="profile__information__user-text">
             {{ user.prenom + " " + user.nom }}
           </p>
-          <div class="profile__information__user-input-name">
-            <Input
-              v-if="modes.edit"
-              type="text"
-              name="prenom"
-              placeholder="Prénom"
-              required
-              v-model="prenom"
-            />
-            <Input
-              v-if="modes.edit"
-              type="text"
-              name="nom"
-              placeholder="Nom"
-              required
-              v-model="nom"
-            />
-          </div>
+          <Input
+            class="profile__information__user-input-name"
+            v-if="modes.edit"
+            type="text"
+            name="prenom"
+            placeholder="Prénom"
+            required
+            v-model="prenom"
+          />
+          <Input
+            v-if="modes.edit"
+            type="text"
+            name="nom"
+            placeholder="Nom"
+            required
+            v-model="nom"
+          />
           <div class="profile__information__user-spacer"></div>
           <p v-if="modes.read" class="profile__information__user-text">
             {{ user.age }} ans
           </p>
-          <div v-if="modes.edit" class="signin__body__input-date-container">
-            <!--This div contain hack for the input date of birth-->
-            <Input
-              class="signin__body__input-date"
-              type="date"
-              name="date-of-birth"
-              v-model="date_naissance"
-              onblur="window.setValue(this.value)"
-            />
-            <Input
-              class="placeholder-date signin__input-date"
-              id="placeholder-date"
-              value="Date de naissance"
-              type="text"
-            />
-          </div>
+          <InputDate
+            class="profile__information__user-date"
+            v-if="modes.edit"
+            v-model="date_naissance"
+          />
           <div class="profile__information__user-spacer"></div>
           <p v-if="modes.read" class="profile__information__user-text">
             {{ user.ville }}
@@ -119,21 +121,28 @@ export default {
       </div>
       <div class="profile__action">
         <Button
-          v-if="modes.read"
+          v-if="modes.editButton"
           class="profile__action__button--edit"
           text="Editer mon profil"
           @click="editMode()"
         />
         <Button
-          v-if="modes.edit"
+          v-if="modes.edit || modes.delete"
           class="profile__action__button--edit"
           text="Annuler"
           @click="abort()"
         />
         <Button
+          v-if="modes.readButton"
           class="profile__action__button"
           text="Supprimer mon profil"
-          @click="sendDelete()"
+          @click="deleteMode()"
+        />
+        <Button
+          v-if="modes.edit || modes.delete"
+          class="profile__action__button"
+          text="Valider"
+          @click="sendValid()"
         />
       </div>
     </section>
@@ -170,6 +179,10 @@ export default {
         text-transform: capitalize;
       }
 
+      &-date {
+        height: 40px;
+      }
+
       &-spacer {
         width: 0;
         margin: 10px auto;
@@ -178,8 +191,7 @@ export default {
       }
 
       &-input-name {
-        display: flex;
-        flex-wrap: wrap;
+        margin-bottom: 20px;
       }
     }
   }
