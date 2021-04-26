@@ -4,6 +4,7 @@ const axios = require("axios").default;
 import PictureProfile from "../components/atoms/PictureProfile.vue";
 import NavBar from "../components/organisms/NavBar.vue";
 import Button from "../components/atoms/Button.vue";
+import Input from "../components/atoms/Input.vue";
 
 export default {
   name: "Profile",
@@ -11,14 +12,21 @@ export default {
     NavBar,
     PictureProfile,
     Button,
+    Input,
   },
   data: function () {
     return {
+      modes: {
+        read: true,
+        edit: false,
+        delete: false,
+      },
       user: {},
       email: "",
       password: "",
     };
   },
+  //get user
   beforeMount() {
     const userId = sessionStorage.getItem("userId");
     const token = sessionStorage.getItem("token");
@@ -31,6 +39,16 @@ export default {
         console.log("this", this.user);
       });
   },
+  methods: {
+    editMode() {
+      this.modes.read = false;
+      this.modes.edit = true;
+    },
+    abort() {
+      this.modes.read = true;
+      this.modes.edit = false;
+    },
+  },
 };
 </script>
 
@@ -42,26 +60,81 @@ export default {
         <PictureProfile
           class="profile__information__img"
           src="default-avatar.png"
-        ></PictureProfile>
+        />
         <div class="profile__information__user">
-          <p class="profile__information__user-text">
+          <p v-if="modes.read" class="profile__information__user-text">
             {{ user.prenom + " " + user.nom }}
           </p>
+          <div class="profile__information__user-input-name">
+            <Input
+              v-if="modes.edit"
+              type="text"
+              name="prenom"
+              placeholder="Prénom"
+              required
+              v-model="prenom"
+            />
+            <Input
+              v-if="modes.edit"
+              type="text"
+              name="nom"
+              placeholder="Nom"
+              required
+              v-model="nom"
+            />
+          </div>
           <div class="profile__information__user-spacer"></div>
-          <p class="profile__information__user-text">{{ user.age }} ans</p>
+          <p v-if="modes.read" class="profile__information__user-text">
+            {{ user.age }} ans
+          </p>
+          <div v-if="modes.edit" class="signin__body__input-date-container">
+            <!--This div contain hack for the input date of birth-->
+            <Input
+              class="signin__body__input-date"
+              type="date"
+              name="date-of-birth"
+              v-model="date_naissance"
+              onblur="window.setValue(this.value)"
+            />
+            <Input
+              class="placeholder-date signin__input-date"
+              id="placeholder-date"
+              value="Date de naissance"
+              type="text"
+            />
+          </div>
           <div class="profile__information__user-spacer"></div>
-          <p class="profile__information__user-text">{{ user.ville }}</p>
+          <p v-if="modes.read" class="profile__information__user-text">
+            {{ user.ville }}
+          </p>
+          <Input
+            v-if="modes.edit"
+            type="text"
+            name="ville"
+            placeholder="Ville"
+            required
+            v-model="ville"
+          />
         </div>
       </div>
       <div class="profile__action">
         <Button
+          v-if="modes.read"
           class="profile__action__button--edit"
           text="Editer mon profil"
-        ></Button>
+          @click="editMode()"
+        />
+        <Button
+          v-if="modes.edit"
+          class="profile__action__button--edit"
+          text="Annuler"
+          @click="abort()"
+        />
         <Button
           class="profile__action__button"
           text="Supprimer mon profil"
-        ></Button>
+          @click="sendDelete()"
+        />
       </div>
     </section>
   </div>
@@ -102,6 +175,11 @@ export default {
         margin: 10px auto;
         height: 25px;
         border-right: solid 1px black;
+      }
+
+      &-input-name {
+        display: flex;
+        flex-wrap: wrap;
       }
     }
   }

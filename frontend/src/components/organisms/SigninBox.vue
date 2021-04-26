@@ -2,6 +2,7 @@
 const axios = require("axios").default;
 //composant
 import ButtonCard from "../atoms/ButtonCard.vue";
+import InputDate from "../atoms/InputDate.vue";
 import Input from "../atoms/Input.vue";
 import TextLink from "../atoms/TextLink.vue";
 //fonction générique
@@ -14,6 +15,7 @@ export default {
   components: {
     ButtonCard,
     Input,
+    InputDate,
     TextLink,
   },
   data: function () {
@@ -39,11 +41,6 @@ export default {
       email: "",
       password: "",
     };
-  },
-  mounted() {
-    window.setValue = function (val) {
-      document.querySelector("#placeholder-date").value = val;
-    }; //get value placeholder date of birth after completion
   },
   methods: {
     isFormError() {
@@ -198,22 +195,7 @@ export default {
             * Merci de renseigner un prénom valide
           </p>
 
-          <div class="signin__body__input-date-container">
-            <!--This div contain hack for the input date of birth-->
-            <Input
-              class="signin__body__input-date"
-              type="date"
-              name="date-of-birth"
-              v-model="date_naissance"
-              onblur="window.setValue(this.value)"
-            />
-            <Input
-              class="placeholder-date signin__input-date"
-              id="placeholder-date"
-              value="Date de naissance"
-              type="text"
-            />
-          </div>
+          <InputDate v-model="date_naissance"/>
           <p class="signin__body__alert" v-if="errors.emptyDate">
             * Merci de compléter ce champ
           </p>
