@@ -82,3 +82,17 @@ exports.editProfile = (req, res, next) => {
         }
     });
 };
+
+//delete profile
+exports.deleteProfile = (req, res, next) => {
+    const userId = req.params.id;
+    sql.query('DELETE FROM user WHERE id=?', userId, function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        } else if (results.length === 0) {
+            return res.status(401).json({ message: 'utilisateur inexistant' });
+        } else {
+            return res.status(200).json({ user: results[0], message: 'utilisateur supprimé' });
+        }
+    });
+};
