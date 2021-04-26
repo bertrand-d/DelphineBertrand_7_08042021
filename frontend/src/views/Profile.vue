@@ -1,6 +1,6 @@
 <script>
 const axios = require("axios").default;
-//composants
+//components
 import PictureProfile from "../components/atoms/PictureProfile.vue";
 import NavBar from "../components/organisms/NavBar.vue";
 import Button from "../components/atoms/Button.vue";
@@ -21,8 +21,11 @@ export default {
   },
   beforeMount() {
     const userId = sessionStorage.getItem("userId");
+    const token = sessionStorage.getItem("token");
     axios
-      .get("http://localhost:3000/api/auth/profile/" + userId)
+      .get("http://localhost:3000/api/auth/profile/" + userId, {
+        headers: { authorization: "Bearer " + token },
+      })
       .then((response) => {
         this.user = response.data.user;
         console.log("this", this.user);
@@ -38,7 +41,7 @@ export default {
       <div class="profile__information">
         <PictureProfile
           class="profile__information__img"
-          src="walter.jpg"
+          src="default-avatar.png"
         ></PictureProfile>
         <div class="profile__information__user">
           <p class="profile__information__user-text">

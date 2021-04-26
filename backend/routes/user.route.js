@@ -1,11 +1,11 @@
 const express = require('express');
 const router = express.Router();
-
 const userCtrl = require('../controllers/user.controller');
+const auth = require('../middleware/auth');
 
-//créer un utilisateur
 router.post('/signin', userCtrl.signin);
 router.post('/login', userCtrl.login);
-router.get('/profile/:id', userCtrl.profile);
+router.get('/profile/:id', auth, userCtrl.profile);
+router.put('/profile/:id', auth, userCtrl.editProfile);
 
 module.exports = router;

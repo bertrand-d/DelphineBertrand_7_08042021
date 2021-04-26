@@ -4,16 +4,16 @@ const { createPool } = require('mysql');
 // const { createHmac } = require('crypto');
 // const secret = 'jaimelesponeysetinternetaussi';
 
-//connexion à la DB
+//connect to DB
 const sql = require("../models/db.js");
-//modèle utilisateur
+//user model
 const User = require("../models/user.model.js");
 
 
 exports.signin = (req, res) => {
-    // Create User depuis le model
+    // Create User since model
     let newUser = new User(req.body);
-    // Inserer le user dans la DB
+    // Insert user in DB
     sql.query('INSERT INTO user SET ?', newUser, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
@@ -47,24 +47,38 @@ exports.login = (req, res,) => {
             message: 'utilisateur connecté',
             userId: userId,
             token: jwt.sign(
-                {userId: userId},
+                { userId: userId },
                 'TmURuMzDYt10Vp8aealH',
-                {expiresIn: '24h'}
+                { expiresIn: '24h' }
             )
         });
     });
 }
 
-//chargement du profil utilisateur
+//get user profile
 exports.profile = (req, res,) => {
     const userId = req.params.id;
     sql.query('SELECT id, nom, prenom, ville, TIMESTAMPDIFF(YEAR, date_naissance, CURDATE()) AS age FROM user WHERE id=?', userId, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {
-            return res.status(401).json({message: 'utilisateur inexistant'});
+            return res.status(401).json({ message: 'utilisateur inexistant' });
         } else {
-            return res.status(200).json({user: results[0]});
+            return res.status(200).json({ user: results[0] });
         }
     });
 }
+
+//edit profile
+exports.editProfile = (req, res, next) => {
+    const userId = req.params.id;
+    sql.query('UPDATE user SET nom, prenom, ville, TIMESTAMPDIFF(YEAR, date_naissance, CURDATE()) AS age WHERE id=?', userId, function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        } else if (results.length === 0) {
+            return res.status(401).json({ message: 'utilisateur inexistant' });
+        } else {
+            return res.status(200).json({ user: results[0], message: 'utilisateur modifié' });
+        }
+    });
+};

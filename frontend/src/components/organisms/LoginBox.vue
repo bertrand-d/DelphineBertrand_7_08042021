@@ -79,7 +79,7 @@ export default {
         .post("http://localhost:3000/api/auth/login", postData)
         .then(function (response) {
           sessionStorage.setItem("userId", response.data.userId);
-          console.log("response,", response);
+          sessionStorage.setItem("token", response.data.token);
           //redirection vers le profil utilisateur
           const userId = sessionStorage.getItem("userId");
           router.push({ name: "Profile", params: { id: userId } });
