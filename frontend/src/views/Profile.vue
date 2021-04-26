@@ -35,24 +35,30 @@ export default {
   <div id="profile-view">
     <NavBar></NavBar>
     <section class="profile">
-      <div class="profile-information">
+      <div class="profile__information">
         <PictureProfile
-          class="profile-information__img"
+          class="profile__information__img"
           src="walter.jpg"
         ></PictureProfile>
-        <div class="profile-information__user">
-          <p class="profile-information__user__text">
+        <div class="profile__information__user">
+          <p class="profile__information__user-text">
             {{ user.prenom + " " + user.nom }}
           </p>
-          <div class="profile-information__user__spacer"></div>
-          <p class="profile-information__user__text">{{ user.age }} ans</p>
-          <div class="profile-information__user__spacer"></div>
-          <p class="profile-information__user__text">{{ user.ville }}</p>
+          <div class="profile__information__user-spacer"></div>
+          <p class="profile__information__user-text">{{ user.age }} ans</p>
+          <div class="profile__information__user-spacer"></div>
+          <p class="profile__information__user-text">{{ user.ville }}</p>
         </div>
       </div>
       <div class="profile__action">
-        <Button class="profile__button--edit" text="Editer mon profil"></Button>
-        <Button class="profile__button" text="Supprimer mon profil"></Button>
+        <Button
+          class="profile__action__button--edit"
+          text="Editer mon profil"
+        ></Button>
+        <Button
+          class="profile__action__button"
+          text="Supprimer mon profil"
+        ></Button>
       </div>
     </section>
   </div>
@@ -69,38 +75,49 @@ export default {
   background-color: white;
   align-items: center;
 
-  &__button {
+  .profile__information {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
     flex-grow: 1;
-    flex-basis: 0;
-    min-width: 250px;
+
+    &__img {
+      width: 250px;
+      height: 250px;
+    }
+
+    .profile__information__user {
+      margin: auto;
+      text-align: center;
+
+      &-text {
+        text-transform: capitalize;
+      }
+
+      &-spacer {
+        width: 0;
+        margin: 10px auto;
+        height: 25px;
+        border-right: solid 1px black;
+      }
+    }
   }
-}
+  .profile__action {
+    &__button--edit {
+      background-color: $secondary-color;
+      margin-bottom: 20px;
+      transition: background-color ease-in-out 0.25s;
 
-.profile-information {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  flex-grow: 1;
+      &:hover {
+        background-color: lighten($secondary-color, 15%);
+      }
+    }
 
-  &__img {
-    width: 250px;
-    height: 250px;
-  }
-}
-
-.profile-information__user {
-  margin: auto;
-  text-align: center;
-
-  &__text {
-    text-transform: capitalize;
-  }
-
-  &__spacer {
-    width: 0;
-    margin: 10px auto;
-    height: 25px;
-    border-right: solid 1px black;
+    &__button {
+      flex-grow: 1;
+      flex-basis: 0;
+      min-width: 250px;
+    }
   }
 }
 </style>
