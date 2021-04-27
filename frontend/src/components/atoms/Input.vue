@@ -2,9 +2,14 @@
 export default {
   name: "Input",
   props: ["type", "name", "placeholder", "required", "value"],
-  methods: {
-    updateValue: function (value) {
-      this.$emit("input", value);
+  computed: {
+    inputVal: {
+      get() {
+        return this.value;
+      },
+      set(val) {
+        this.$emit("input", val);
+      },
     },
   },
 };
@@ -17,8 +22,7 @@ export default {
     :name="name"
     :placeholder="placeholder"
     :required="required"
-    :value="value"
-    v-on:input="updateValue($event.target.value)"
+    v-model="inputVal"
   />
 </template>
 

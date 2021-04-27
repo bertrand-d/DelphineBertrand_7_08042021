@@ -17,3 +17,22 @@ exports.checkDate = (value) => {
     let re = /([12]\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01]))/;
     return re.test(value);
 }
+
+exports.test = (field, emptyValue, badValue) => {
+    if (!field) {
+        emptyValue = true;
+        console.log(emptyValue)
+        return emptyValue;
+    } else {
+        emptyValue = false; //drop error message if user correct the answer
+    }
+
+    if (!this.checkOnlyLetters(field)) {
+        badValue = true;
+        return badValue
+    } else {
+        badValue = false; //drop error message if user correct the answer
+    }
+    console.log(field, emptyValue, badValue)
+    
+}
