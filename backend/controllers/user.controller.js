@@ -71,9 +71,14 @@ exports.profile = (req, res,) => {
 
 //edit profile
 exports.editProfile = (req, res, next) => {
-    const userId = req.params.id;
-    sql.query('UPDATE user SET nom, prenom, ville, TIMESTAMPDIFF(YEAR, date_naissance, CURDATE()) AS age WHERE id=?', userId, function (error, results, fields) {
+    const nom = req.body.nom;
+    const prenom = req.body.prenom;
+    const date_naissance = req.body.date_naissance;
+    const ville = req.body.ville;
+    const id = req.params.id;
+    sql.query('UPDATE user SET nom=?, prenom=?, ville=?, date_naissance=? WHERE id=?', [nom, prenom, ville, date_naissance, id], function (error, results, fields) {
         if (error) {
+            console.log(req.body);
             return res.status(500).json({ error });
         } else if (results.length === 0) {
             return res.status(401).json({ message: 'utilisateur inexistant' });

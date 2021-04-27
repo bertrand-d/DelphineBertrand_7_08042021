@@ -26,8 +26,10 @@ export default {
         delete: false,
       },
       user: {},
-      email: "",
-      password: "",
+      nom: "",
+      prenom: "",
+      date_naissance: "",
+      ville: "",
     };
   },
   //get user
@@ -40,7 +42,6 @@ export default {
       })
       .then((response) => {
         this.user = response.data.user;
-        console.log("this", this.user);
       });
   },
   methods: {
@@ -61,6 +62,33 @@ export default {
       this.modes.delete = false;
       this.modes.readButton = true;
       this.modes.editButton = true;
+    },
+    sendValid() {
+      if (this.modes.edit) {
+        const postData = {
+          nom: this.nom,
+          prenom: this.prenom,
+          date_naissance: this.date_naissance,
+          ville: this.ville,
+        };
+        const userId = sessionStorage.getItem("userId");
+
+        axios
+          .put("http://localhost:3000/api/auth/profile/" + userId, postData)
+          .then((response) => {
+            this.user = response.data.user;
+          });
+      } else if (this.modes.delete) {
+        const userId = sessionStorage.getItem("userId");
+        const token = sessionStorage.getItem("token");
+        axios
+          .delete("http://localhost:3000/api/auth/profile/" + userId, {
+            headers: { authorization: "Bearer " + token },
+          })
+          .then((response) => {
+            this.user = response.data.user;
+          });
+      }
     },
   },
 };
