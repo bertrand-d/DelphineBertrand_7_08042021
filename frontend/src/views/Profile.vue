@@ -8,6 +8,8 @@ import Input from "../components/atoms/Input.vue";
 import InputDate from "../components/atoms/InputDate.vue";
 //fonction générique
 import validateInput from "../utils/validateInput.js";
+//routeur
+import router from "../router/index.js";
 
 export default {
   name: "Profile",
@@ -28,6 +30,7 @@ export default {
         delete: false,
       },
       errors: {
+        hasEmpty: false,
         emptyNom: false,
         emptyPrenom: false,
         emptyVille: false,
@@ -182,7 +185,9 @@ export default {
             headers: { authorization: "Bearer " + token },
           })
           .then((response) => {
-            this.user = response.data.user;
+            console.log(response)
+            //redirection vers le login
+            router.push("/");
           });
       }
     },
@@ -210,22 +215,41 @@ export default {
             name="prenom"
             placeholder="Prénom"
             required
-            v-model="user.prenom"
+            v-model="prenom"
           />
-          <p class="signin__body__alert" v-if="!user.prenom">
+          <p
+            class="profile__information__user-alert"
+            v-if="this.errors.emptyPrenom"
+          >
             * Merci de compléter ce champ
           </p>
-          <p class="signin__body__alert" v-else-if="errors.badValuePrenom">
+          <p
+            class="profile__information__user-alert"
+            v-else-if="this.errors.badValuePrenom"
+          >
             * Merci de renseigner un prénom valide
           </p>
           <Input
+            class="profile__information__user-input-name"
             v-if="modes.edit"
             type="text"
             name="nom"
             placeholder="Nom"
             required
-            v-model="user.nom"
+            v-model="nom"
           />
+          <p
+            class="profile__information__user-alert"
+            v-if="this.errors.emptyNom"
+          >
+            * Merci de compléter ce champ
+          </p>
+          <p
+            class="profile__information__user-alert"
+            v-else-if="this.errors.badValueNom"
+          >
+            * Merci de renseigner un nom valide
+          </p>
           <div class="profile__information__user-spacer"></div>
           <p v-if="modes.read" class="profile__information__user-text">
             {{ user.age }} ans
@@ -233,20 +257,45 @@ export default {
           <InputDate
             class="profile__information__user-date"
             v-if="modes.edit"
-            v-model="user.date_naissance"
+            v-model="date_naissance"
           />
+          <p
+            class="profile__information__user-alert"
+            v-if="this.errors.emptyDate"
+          >
+            * Merci de compléter ce champ
+          </p>
+          <p
+            class="profile__information__user-alert"
+            v-else-if="this.errors.badValueDate"
+          >
+            * Merci de renseigner une date de naissance valide
+          </p>
           <div class="profile__information__user-spacer"></div>
           <p v-if="modes.read" class="profile__information__user-text">
             {{ user.ville }}
           </p>
           <Input
+            class="profile__information__user-input-name"
             v-if="modes.edit"
             type="text"
             name="ville"
             placeholder="Ville"
             required
-            v-model="user.ville"
+            v-model="ville"
           />
+          <p
+            class="profile__information__user-alert"
+            v-if="this.errors.emptyVille"
+          >
+            * Merci de compléter ce champ
+          </p>
+          <p
+            class="profile__information__user-alert"
+            v-else-if="this.errors.badValueVille"
+          >
+            * Merci de renseigner une ville valide
+          </p>
         </div>
       </div>
       <div class="profile__action">
@@ -317,11 +366,12 @@ export default {
 
       &-date {
         height: 40px;
+        margin-bottom: 20px;
       }
 
       &-spacer {
         width: 0;
-        margin: 10px auto;
+        margin: 0px auto 10px auto;
         height: 25px;
         border-right: solid 1px black;
       }
