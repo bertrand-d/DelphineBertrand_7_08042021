@@ -2,10 +2,10 @@
 const axios = require("axios").default;
 //components
 import PictureProfile from "../components/atoms/PictureProfile.vue";
-import NavBar from "../components/organisms/NavBar.vue";
 import Button from "../components/atoms/Button.vue";
 import Input from "../components/atoms/Input.vue";
 import InputDate from "../components/atoms/InputDate.vue";
+import NavBar from "../components/organisms/NavBar.vue";
 //fonction générique
 import validateInput from "../utils/validateInput.js";
 //routeur

@@ -22,7 +22,6 @@ export default {
   background-color: $primary-color;
   height: 80px;
   border-radius: 20px;
-  line-height: 80px;
   transition: background-color ease-in-out 0.25s;
 
   &:hover {
@@ -30,9 +29,9 @@ export default {
   }
 
   &__text {
+    display: block;
     text-align: center;
     text-transform: uppercase;
-    line-height: 80px;
     font-weight: $font-weight-bold;
     color: white;
   }
