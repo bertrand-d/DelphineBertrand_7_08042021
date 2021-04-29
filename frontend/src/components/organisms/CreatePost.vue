@@ -73,7 +73,6 @@ export default {
 
 <style lang="scss">
 .create-post {
-  width: 700px; //TO REMOVE
   padding: 20px;
   background-color: white;
   border-radius: $border-radius-m;
