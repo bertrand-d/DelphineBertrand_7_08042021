@@ -84,10 +84,10 @@ export default {
 
     &__img {
       margin-right: 20px;
-      //because of margin-right, picture isnt an exact round, min and max size permit to keep correct picture sizes
+      //because of margin-right, picture isnt an exact circle, min and max size permit to keep correct picture sizes
       min-width: 60px;
       max-width: 60px;
-      max-height: 60px;
+      min-height: 60px;
       max-height: 60px;
     }
 
@@ -111,6 +111,7 @@ export default {
     display: flex;
     flex-wrap: wrap;
     align-items: center;
+    margin-left: 80px;
 
     &__icon {
       margin-right: 20px;
@@ -142,6 +143,7 @@ export default {
 
     &__button {
       background-color: $secondary-color;
+      border-radius: $border-radius-s;
       transition: background-color ease-in-out 0.25s;
       height: 50px;
       width: 250px;
