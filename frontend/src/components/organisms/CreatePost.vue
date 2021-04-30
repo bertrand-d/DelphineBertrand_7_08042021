@@ -1,4 +1,5 @@
 <script>
+const axios = require("axios").default;
 import PictureProfile from "../atoms/PictureProfile.vue";
 import Button from "../atoms/Button.vue";
 
@@ -12,21 +13,51 @@ export default {
   data: function () {
     return {
       uploadQuantity: 0,
+      contenu: null,
+      media_url: null,
+
+      errors: {
+        emptyContent: false,
+      }
     };
   },
   computed: {
-    inputVal: {
-      get() {
-        return this.value;
-      },
-      set(val) {
-        this.$emit("input", val);
-      },
-    },
+    // inputVal: {
+    //   get() {
+    //     return this.value;
+    //   },
+    //   set(val) {
+    //     this.$emit("input", val);
+    //   },
+    // },
   },
   methods: {
     previewFiles(event) {
       this.uploadQuantity = event.target.files.length;
+    },
+    sendPost() {
+      if (!this.contenu) {
+        this.errors.emptyContent = true;
+        return console.log("content can't be empty");
+      }
+      const today = new Date().toISOString().slice(0, 10);
+      const token = sessionStorage.getItem("token");
+      const postData = {
+        date: today,
+        contenu: this.contenu,
+        media_url: this.media_url,
+        auteur: sessionStorage.getItem("userId"),
+      };
+
+      axios
+        .post("http://localhost:3000/api/feed/post/", postData, {
+          headers: { authorization: "Bearer " + token },
+        })
+        .then((response) => {
+          this.contenu = null;
+          this.media_url = null;
+          console.log(response);
+        });
     },
   },
 };
@@ -42,8 +73,14 @@ export default {
         name="create-post"
         placeholder="Partagez vos idées ici"
         required="required"
-        v-model="inputVal"
+        v-model="contenu"
       />
+      <p
+        class="create-post__body__alert"
+        v-if="this.errors.emptyContent"
+      >
+        * Merci de compléter ce champ
+      </p>
     </div>
     <div class="create-post__footer">
       <i class="create-post__footer__icon far fa-image"></i>
@@ -58,8 +95,14 @@ export default {
         id="media"
         @change="previewFiles"
       />
-      <p v-if="this.uploadQuantity" class="create-post__footer__upload-quantity">
-        {{ this.uploadQuantity }} fichier<span v-if="this.uploadQuantity > 1">s</span> ajouté<span v-if="this.uploadQuantity > 1">s</span>
+      <p
+        v-if="this.uploadQuantity"
+        class="create-post__footer__upload-quantity"
+      >
+        {{ this.uploadQuantity }} fichier<span v-if="this.uploadQuantity > 1"
+          >s</span
+        >
+        ajouté<span v-if="this.uploadQuantity > 1">s</span>
       </p>
 
       <Button
@@ -80,6 +123,7 @@ export default {
 
   &__body {
     display: flex;
+    align-items: center;
     margin-bottom: 20px;
 
     &__img {
@@ -104,6 +148,10 @@ export default {
         opacity: 100%;
         font-size: 0.8rem;
       }
+    }
+
+    &__alert {
+      @extend .alert-msg;
     }
   }
 
@@ -135,10 +183,9 @@ export default {
     }
 
     &__upload-quantity {
-        border-left : 1px solid black;
-        margin-left: 20px;
-        padding-left: 20px;
-
+      border-left: 1px solid black;
+      margin-left: 20px;
+      padding-left: 20px;
     }
 
     &__button {
