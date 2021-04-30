@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <div class="signin__container">
+  <div id="signin">
     <div class="signin__logo">
       <Logo src="icon-above-font.png"></Logo>
     </div>
@@ -22,7 +22,7 @@ export default {
 </template>
 
 <style>
-.signin__container {
+#signin {
   position: fixed;
   top: 50%;
   left: 50%;

@@ -13,7 +13,7 @@ export default {
 </script>
 
 <template>
-  <div class="home__container">
+  <div id ="home">
     <div class="home__logo">
       <Logo src="icon-above-font.png"></Logo>
     </div>
@@ -22,7 +22,7 @@ export default {
 </template>
 
 <style lang='scss'>
-.home__container {
+#home {
   position: fixed;
   top: 50%;
   left: 50%;

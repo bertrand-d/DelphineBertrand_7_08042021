@@ -1,4 +1,5 @@
 <script>
+const axios = require("axios").default;
 import NavBar from "../components/organisms/NavBar.vue";
 import CreatePost from "../components/organisms/CreatePost.vue";
 import Post from "../components/organisms/Post.vue";
@@ -10,6 +11,26 @@ export default {
     CreatePost,
     Post,
   },
+  data: function () {
+    return {
+      allPosts: [],
+    };
+  },
+  methods: {
+    getPosts() {
+      const token = sessionStorage.getItem("token");
+      axios
+      .get("http://localhost:3000/api/feed/post/", {
+          headers: { authorization: "Bearer " + token },
+        })
+      .then((response) => {
+        this.allPosts = response.data.post;
+      });
+    },
+  },
+  mounted() {
+    this.getPosts();
+  },
 };
 </script>
 
@@ -17,9 +38,16 @@ export default {
   <div id="news-feed">
     <NavBar />
     <div class="news-feed__max-container">
-      <CreatePost class="news-feed__create-post" />
+      <CreatePost class="news-feed__create-post" @refresh="getPosts()" />
+      <!-- @on-custom_event="getPosts()-->
       <div class="news-feed__spacer"></div>
-      <Post class="news-feed__post" />
+
+      <Post
+        class="news-feed__post"
+        v-for="post in this.allPosts"
+        :key="post.id"
+      />
+      <!-- :key is necessary to make v-for work -->
     </div>
   </div>
 </template>
@@ -40,5 +68,7 @@ export default {
   border-bottom: solid 2px #b8b2b2;
 }
 
-
+.news-feed__post {
+  margin-bottom: 40px;
+}
 </style>

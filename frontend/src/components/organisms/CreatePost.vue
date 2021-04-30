@@ -25,6 +25,9 @@ export default {
     previewFiles(event) {
       this.uploadQuantity = event.target.files.length;
     },
+    notifyParent() {
+      this.$emit('refresh'); //refresh get all post when add new post
+    },
     sendPost() {
       if (!this.contenu) {
         this.errors.emptyContent = true;
@@ -46,7 +49,8 @@ export default {
         .then((response) => {
           this.contenu = null;
           this.media_url = null;
-          console.log(response);
+          this.notifyParent()
+          console.log(response);          
         });
     },
   },

@@ -4,6 +4,6 @@ const postCtrl = require('../controllers/post.controller');
 const auth = require('../middleware/auth');
 
 router.post('/post',auth, postCtrl.createPost);
-router.get('/post', postCtrl.allPosts);
+router.get('/post',auth, postCtrl.allPosts);
 
 module.exports = router;
