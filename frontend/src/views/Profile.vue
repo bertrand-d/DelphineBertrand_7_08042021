@@ -61,7 +61,6 @@ export default {
           headers: { authorization: "Bearer " + token },
         })
         .then((response) => {
-      
           this.user = response.data.user;
           this.nom = this.user.nom;
           this.prenom = this.user.prenom;

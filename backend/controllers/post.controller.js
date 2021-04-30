@@ -27,8 +27,7 @@ exports.createPost = (req, res) => {
 
 //get all posts
 exports.allPosts = (req, res,) => {
-    // const userId = req.params.id;
-    sql.query('SELECT auteur, date, contenu, media_url FROM post', function (error, results, fields) {
+    sql.query('SELECT auteur, DATE_FORMAT(date, "%d/%m/%Y") date, contenu, media_url FROM post', function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {

@@ -1,4 +1,5 @@
 <script>
+// const axios = require("axios").default;
 import PictureProfile from "../atoms/PictureProfile.vue";
 
 export default {
@@ -6,6 +7,7 @@ export default {
   components: {
     PictureProfile,
   },
+  props: ['postData'],
 };
 </script>
 
@@ -15,16 +17,14 @@ export default {
       <PictureProfile class="post__header__img" src="default-avatar.png" />
       <div>
         <p class="post__header__name">
-          Jesse <span class="post__header__name--uppercase">Pinkman</span>
+          {{postData.auteur}} <span class="post__header__name--uppercase">Pinkman</span>
         </p>
-        <p class="post__header__date">Le 15/04/2012</p>
+        <p class="post__header__date">Le {{ postData.date }}</p>
       </div>
     </div>
     <div class="post__body">
       <p class="post__body__text">
-        Mr White, c’est le diable. Tu sais, il est plus intelligent que toi, il
-        est plus chanceux que toi. Peu importe ce que tu penses qu’il est
-        supposé arriver, je te le dis, l’exact opposé de ça va se produire, ok ?
+        {{postData.contenu}}
       </p>
       <div class="post__body__spacer"></div>
       <div class="post__body__comment">
@@ -81,14 +81,14 @@ export default {
       &__icon {
         text-align: center;
         margin-right: 10px;
-        margin-left : auto;
+        margin-left: auto;
         font-size: 1.5rem;
         color: $secondary-color;
       }
 
       &__text {
-          margin-right: auto;
-          text-align: center;
+        margin-right: auto;
+        text-align: center;
       }
     }
   }

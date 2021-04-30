@@ -9,7 +9,7 @@ export default {
   components: {
     NavBar,
     CreatePost,
-    Post,
+    Post
   },
   data: function () {
     return {
@@ -20,12 +20,13 @@ export default {
     getPosts() {
       const token = sessionStorage.getItem("token");
       axios
-      .get("http://localhost:3000/api/feed/post/", {
+        .get("http://localhost:3000/api/feed/post/", {
           headers: { authorization: "Bearer " + token },
         })
-      .then((response) => {
-        this.allPosts = response.data.post;
-      });
+        .then((response) => {
+          this.allPosts = response.data.post;
+          console.log(response);
+        });
     },
   },
   mounted() {
@@ -39,20 +40,13 @@ export default {
     <NavBar />
     <div class="news-feed__max-container">
       <CreatePost class="news-feed__create-post" @refresh="getPosts()" />
-      <!-- @on-custom_event="getPosts()-->
-      <div class="news-feed__spacer"></div>
-
-      <Post
-        class="news-feed__post"
-        v-for="post in this.allPosts"
-        :key="post.id"
-      />
-      <!-- :key is necessary to make v-for work -->
+      <div class="news-feed__spacer"></div>  
+      <Post class="news-feed__post" v-for="post in allPosts" :key="post.id" :postData="post"/>    
     </div>
   </div>
 </template>
 
-<style lang = "scss">
+<style lang="scss">
 .news-feed__max-container {
   @extend .max-container-news-feed;
 }
@@ -71,4 +65,5 @@ export default {
 .news-feed__post {
   margin-bottom: 40px;
 }
+
 </style>
