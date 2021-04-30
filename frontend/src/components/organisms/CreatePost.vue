@@ -18,18 +18,8 @@ export default {
 
       errors: {
         emptyContent: false,
-      }
+      },
     };
-  },
-  computed: {
-    // inputVal: {
-    //   get() {
-    //     return this.value;
-    //   },
-    //   set(val) {
-    //     this.$emit("input", val);
-    //   },
-    // },
   },
   methods: {
     previewFiles(event) {
@@ -75,10 +65,7 @@ export default {
         required="required"
         v-model="contenu"
       />
-      <p
-        class="create-post__body__alert"
-        v-if="this.errors.emptyContent"
-      >
+      <p class="create-post__body__alert" v-if="this.errors.emptyContent">
         * Merci de compléter ce champ
       </p>
     </div>
@@ -132,6 +119,7 @@ export default {
       min-width: 60px;
       max-width: 60px;
       min-height: 60px;
+      height: 60px;
       max-height: 60px;
     }
 

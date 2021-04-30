@@ -1,12 +1,11 @@
-const jwt = require('jsonwebtoken');
+// const jwt = require('jsonwebtoken');
 const { createPool } = require('mysql');
-
 //connect to DB
 const sql = require("../models/db.js");
 //user model
 const Post = require("../models/post.model.js");
 
-
+//post
 exports.createPost = (req, res) => {
     // Create Post since model
     let newPost = new Post(req.body);
@@ -25,3 +24,17 @@ exports.createPost = (req, res) => {
         });
     });
 };
+
+//get all posts
+exports.allPosts = (req, res,) => {
+    // const userId = req.params.id;
+    sql.query('SELECT auteur, date, contenu, media_url FROM post', function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        } else if (results.length === 0) {
+            return res.status(401).json({ message: 'post inexistant' });
+        } else {
+            return res.status(200).json({ post: results});
+        }
+    });
+}
