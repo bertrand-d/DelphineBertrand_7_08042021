@@ -25,7 +25,6 @@ export default {
         })
         .then((response) => {
           this.allPosts = response.data.post;
-          console.log(response);
         });
     },
   },
