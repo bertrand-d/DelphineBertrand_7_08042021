@@ -40,6 +40,7 @@ export default {
       ville: "",
       email: "",
       password: "",
+      avatar_url:"default-avatar.png"
     };
   },
   methods: {
@@ -146,6 +147,7 @@ export default {
         ville: this.ville,
         email: this.email,
         password: this.password,
+        avatar_url: this.avatar_url
       };
 
       axios

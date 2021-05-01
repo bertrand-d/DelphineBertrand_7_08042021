@@ -66,6 +66,7 @@ export default {
           this.prenom = this.user.prenom;
           this.date_naissance = this.user.date_naissance;
           this.ville= this.user.ville;
+          this.avatar_url = this.user.avatar_url;
         });
     },
     editMode() {
@@ -206,7 +207,7 @@ export default {
       <div class="profile__information">
         <PictureProfile
           class="profile__information__img"
-          src="default-avatar.png"
+          :src="`${this.user.avatar_url}`"
         />
         <div class="profile__information__user">
           <p v-if="modes.read" class="profile__information__user-text">

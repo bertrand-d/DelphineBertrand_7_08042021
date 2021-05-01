@@ -54,6 +54,7 @@ export default {
     }
 
     &__name {
+      text-transform: capitalize;
       font-weight: $font-weight-bold;
       margin-bottom: 5px;
     }
