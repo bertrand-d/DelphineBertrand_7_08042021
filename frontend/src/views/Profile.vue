@@ -172,8 +172,11 @@ export default {
         };
 
         const userId = sessionStorage.getItem("userId");
+        const token = sessionStorage.getItem("token");
         axios
-          .put("http://localhost:3000/api/auth/profile/" + userId, postData)
+          .put("http://localhost:3000/api/auth/profile/" + userId, postData, {
+          headers: { authorization: "Bearer " + token },
+          })
           .then(() => {
             this.modes.read = true;
             this.modes.edit = false;
@@ -207,7 +210,7 @@ export default {
       <div class="profile__information">
         <PictureProfile
           class="profile__information__img"
-          :src="`${this.user.avatar_url}`"
+          src="default-avatar.png"
         />
         <div class="profile__information__user">
           <p v-if="modes.read" class="profile__information__user-text">
