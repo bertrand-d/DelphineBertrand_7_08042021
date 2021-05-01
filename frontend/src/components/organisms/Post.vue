@@ -17,7 +17,7 @@ export default {
       <PictureProfile class="post__header__img" src="default-avatar.png" />
       <div>
         <p class="post__header__name">
-          {{postData.auteur}} <span class="post__header__name--uppercase">Pinkman</span>
+          {{postData.prenom}} <span class="post__header__name--uppercase">{{ postData.nom }}</span>
         </p>
         <p class="post__header__date">Le {{ postData.date }}</p>
       </div>
@@ -75,6 +75,7 @@ export default {
     }
 
     &__comment {
+      cursor: pointer;
       display: flex;
       align-items: center;
 

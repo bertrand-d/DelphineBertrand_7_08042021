@@ -27,13 +27,13 @@ exports.createPost = (req, res) => {
 
 //get all posts
 exports.allPosts = (req, res,) => {
-    sql.query('SELECT auteur, DATE_FORMAT(date, "%d/%m/%Y") date, contenu, media_url FROM post', function (error, results, fields) {
+    sql.query('SELECT post.contenu, post.media_url, DATE_FORMAT(post.date, "%d/%m/%Y") date, user.nom, user.prenom FROM post INNER JOIN user ON post.auteur = user.id;', function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {
             return res.status(401).json({ message: 'post inexistant' });
         } else {
-            return res.status(200).json({ post: results});
+            return res.status(200).json({ post: results });
         }
     });
 }
