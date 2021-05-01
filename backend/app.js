@@ -4,6 +4,7 @@ const mysql = require('mysql');
 //routeurs
 const userRoutes = require('./routes/user.route');
 const postRoutes = require('./routes/post.route');
+const commentRoutes = require('./routes/comment.route');
 
 //CORS
 app.use((req, res, next) => {
@@ -18,6 +19,6 @@ app.use(express.json());
 
 //routes
 app.use('/api/auth', userRoutes);
-app.use('/api/feed', postRoutes);
+app.use('/api/feed', postRoutes, commentRoutes);
 
 module.exports = app;

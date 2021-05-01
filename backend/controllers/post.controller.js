@@ -2,14 +2,14 @@
 const { createPool } = require('mysql');
 //connect to DB
 const sql = require("../models/db.js");
-//user model
+//post model
 const Post = require("../models/post.model.js");
 
 //post
 exports.createPost = (req, res) => {
     // Create Post since model
     let newPost = new Post(req.body);
-    // Insert user in DB
+    // Insert post in DB
     sql.query('INSERT INTO post SET ?', newPost, function (error, results, fields) {
         if (error) {
             console.log(error)
