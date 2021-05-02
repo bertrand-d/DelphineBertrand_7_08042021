@@ -26,7 +26,7 @@ export default new Router({
         component: Profile
     },
     {
-        path: '/newsFeed',
+        path: '/newsfeed',
         name: 'Newsfeed',
         component: NewsFeed
     }
