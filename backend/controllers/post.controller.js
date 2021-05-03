@@ -43,13 +43,23 @@ exports.deletePost = (req, res, next) => {
     console.log("this.deletePost");
     const postId = req.params.id;
     const userId = req.currentUserId;
-    sql.query('DELETE FROM post WHERE id=? AND auteur=? ', [postId, userId], function (error, results, fields) {
+
+
+    let q = 'DELETE FROM post WHERE id=? AND auteur=?';
+    let p = [postId, userId];
+    if (req.admin) {
+        q = 'DELETE FROM post WHERE id=?';
+        p = [postId];
+
+    }
+
+    sql.query(q, p, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {
             return res.status(401).json({ message: 'post inexistant' });
         } else {
-            return res.status(200).json({ post: results[0], message: 'post supprimé' });
+            return res.status(200).json({ message: 'post supprimé' });
         }
     });
 };

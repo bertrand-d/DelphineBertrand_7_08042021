@@ -8,7 +8,9 @@ module.exports = (req, res, next) => {
         const userId = decodedToken.userId; //extrait l'id utilisateur du token
         
         if(userId) {
+            // request sql to get role
             req.currentUserId = userId; //save userId into request object
+            // req.admin = true;
             next(); //utilisateur authentifié
         }
     } catch {

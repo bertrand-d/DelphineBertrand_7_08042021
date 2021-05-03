@@ -30,8 +30,8 @@ exports.signin = (req, res) => {
 
 //login
 exports.login = (req, res,) => {
-    let userEmail = req.body.email;
-    let userPassword = req.body.password;
+    const userEmail = req.body.email;
+    const userPassword = req.body.password;
     sql.query('SELECT * FROM user WHERE email=? AND password=?', [userEmail, userPassword], function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
@@ -42,10 +42,12 @@ exports.login = (req, res,) => {
                 message: 'Le nom d\'utilisateur ou le mdp est invalide'
             })
         }
-        let userId = results[0].id;
+        const userId = results[0].id;
+        const role = results[0].role;
         return res.status(200).json({
             message: 'utilisateur connecté',
             userId: userId,
+            role : role,
             token: jwt.sign(
                 { userId: userId },
                 'TmURuMzDYt10Vp8aealH',

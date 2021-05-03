@@ -18,12 +18,13 @@ export default {
       emptyContent: false,
       contenu: null,
       allComments: [],
-      userId : sessionStorage.getItem("userId"),
+      userId: sessionStorage.getItem("userId"),
+      role : sessionStorage.getItem("role"),
     };
   },
   methods: {
     notifyParent() {
-      this.$emit('refresh'); //refresh get all post when add new post
+      this.$emit("refresh"); //refresh get all post when add new post
     },
     deletePost() {
       const postId = this.postData.id;
@@ -61,7 +62,6 @@ export default {
     },
   },
   mounted() {
-    
     const postId = this.postData.id;
     const token = sessionStorage.getItem("token");
     axios
@@ -90,7 +90,7 @@ export default {
         class="post__header__delete-button"
         text="supprimer le post"
         @click="deletePost()"
-        v-if="postData.auteur == this.userId"
+        v-if="postData.auteur == this.userId || this.role === 1"
       />
     </div>
     <div class="post__body">

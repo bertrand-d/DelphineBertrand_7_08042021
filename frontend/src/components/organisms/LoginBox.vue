@@ -80,8 +80,8 @@ export default {
         .then(function (response) {
           sessionStorage.setItem("userId", response.data.userId);
           sessionStorage.setItem("token", response.data.token);
-          //redirection vers le profil utilisateur
-          // const userId = sessionStorage.getItem("userId");
+          sessionStorage.setItem("role", response.data.role);
+          //redirection vers le newsfeed
           router.push({ name: "Newsfeed" });
         })
         .catch((error) => {
