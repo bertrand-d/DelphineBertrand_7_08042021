@@ -18,6 +18,7 @@ export default {
       emptyContent: false,
       contenu: null,
       allComments: [],
+      userId : sessionStorage.getItem("userId"),
     };
   },
   methods: {
@@ -31,8 +32,8 @@ export default {
         .delete("http://localhost:3000/api/feed/post/" + postId, {
           headers: { authorization: "Bearer " + token },
         })
-        .then((response) => {
-          console.log("post supprimé", response);
+        .then(() => {
+          console.log("post supprimé");
           this.notifyParent();
         });
     },
@@ -54,13 +55,13 @@ export default {
 
       axios
         .post("http://localhost:3000/api/feed/comment/", commentData)
-        .then((response) => {
+        .then(() => {
           this.contenu = null;
-          console.log(response);
         });
     },
   },
   mounted() {
+    
     const postId = this.postData.id;
     const token = sessionStorage.getItem("token");
     axios
@@ -69,7 +70,6 @@ export default {
       })
       .then((response) => {
         this.allComments = response.data.comments;
-        console.log(response)
       });
   },
 };
@@ -90,6 +90,7 @@ export default {
         class="post__header__delete-button"
         text="supprimer le post"
         @click="deletePost()"
+        v-if="postData.auteur == this.userId"
       />
     </div>
     <div class="post__body">
@@ -121,8 +122,10 @@ export default {
       </div>
     </div>
     <div>
-          <p v-for="comment in this.allComments" :key="comment.id">{{ comment.contenu }}</p>
-        </div>
+      <p v-for="comment in this.allComments" :key="comment.id">
+        {{ comment.contenu }}
+      </p>
+    </div>
   </div>
 </template>
 
