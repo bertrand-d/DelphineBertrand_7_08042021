@@ -17,9 +17,21 @@ export default {
       },
       emptyContent: false,
       contenu: null,
+      allComments: [],
     };
   },
   methods: {
+    deletePost() {
+      const userId = sessionStorage.getItem("userId");
+      const token = sessionStorage.getItem("token");
+      axios
+        .delete("http://localhost:3000/api/feed/post/" + userId, {
+          headers: { authorization: "Bearer " + token },
+        })
+        .then((response) => {
+          console.log(response);
+        });
+    },
     commentMode() {
       this.modes.commentMode = true;
     },
@@ -43,17 +55,18 @@ export default {
           console.log(response);
         });
     },
-    deletePost() {
-      const postId = sessionStorage.getItem("userId");
-      const token = sessionStorage.getItem("token");
-      axios
-        .delete("http://localhost:3000/api/feed/post/" + postId, {
-            headers: { authorization: "Bearer " + token }
-          })
-        .then((response) => {
-          console.log(response);
-        });
-    },
+  },
+  mounted() {
+    const postId = this.postData.id;
+    const token = sessionStorage.getItem("token");
+    axios
+      .get("http://localhost:3000/api/feed/comment/" + postId, {
+        headers: { authorization: "Bearer " + token },
+      })
+      .then((response) => {
+        this.allComments = response.data.comments;
+        console.log(response)
+      });
   },
 };
 </script>
@@ -103,6 +116,9 @@ export default {
         />
       </div>
     </div>
+    <div>
+          <p v-for="comment in this.allComments" :key="comment.id">{{ comment.contenu }}</p>
+        </div>
   </div>
 </template>
 
