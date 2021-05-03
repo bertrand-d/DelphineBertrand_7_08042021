@@ -47,6 +47,7 @@ export default {
         return console.log("content can't be empty");
       }
       const today = new Date().toISOString().slice(0, 10);
+      const token = sessionStorage.getItem("token");
       const commentData = {
         date: today,
         post: this.postData.id,
@@ -55,14 +56,16 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/api/feed/comment/", commentData)
+        .post("http://localhost:3000/api/feed/comment/", commentData, {
+          headers: { authorization: "Bearer " + token },
+        })
         .then(() => {
           this.contenu = null;
+          this.getcomments();
         });
     },
-  },
-  mounted() {
-    const postId = this.postData.id;
+    getcomments() {
+      const postId = this.postData.id;
     const token = sessionStorage.getItem("token");
     axios
       .get("http://localhost:3000/api/feed/comment/" + postId, {
@@ -71,6 +74,10 @@ export default {
       .then((response) => {
         this.allComments = response.data.comments;
       });
+    }
+  },
+  mounted() {
+    this.getcomments();
   },
 };
 </script>

@@ -10,7 +10,6 @@ module.exports = (req, res, next) => {
         if(userId) {
             req.currentUserId = userId; //save userId into request object
             req.admin = role == 1;
-            console.log('User is admin ?', req.admin);
             next(); //utilisateur authentifié
         }
     } catch {
