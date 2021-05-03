@@ -49,7 +49,7 @@ exports.login = (req, res,) => {
             userId: userId,
             role : role,
             token: jwt.sign(
-                { userId: userId },
+                { userId: userId, role: role },
                 'TmURuMzDYt10Vp8aealH',
                 { expiresIn: '24h' }
             )
