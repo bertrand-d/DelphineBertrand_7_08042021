@@ -1,10 +1,9 @@
 const express = require('express');
 const router = express.Router();
 const commentCtrl = require('../controllers/comment.controller');
-// const auth = require('../middleware/auth');
-// const multer = require('../middleware/multer-config');
+const auth = require('../middleware/auth');
 
-router.post('/comment', commentCtrl.createComment);
-router.get('/comment/:postId', commentCtrl.allComments);
+router.post('/comment', auth, commentCtrl.createComment);
+router.get('/comment/:postId', auth, commentCtrl.allComments);
 
 module.exports = router;
