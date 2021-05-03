@@ -27,11 +27,11 @@ exports.createComment = (req, res) => {
 
 //get all comment
 exports.allComments = (req, res,) => {
-    sql.query('SELECT * FROM commentaire', function (error, results, fields) {
+    const postId = req.params.postId;
+
+    sql.query('SELECT * FROM commentaire WHERE post=? ', postId, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
-        } else if (results.length === 0) {
-            return res.status(401).json({ message: 'post inexistant' });
         } else {
             return res.status(200).json({ post: results });
         }
