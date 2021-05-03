@@ -90,7 +90,7 @@ export default {
         class="post__header__delete-button"
         text="supprimer le post"
         @click="deletePost()"
-        v-if="postData.auteur == this.userId || this.role === 1"
+        v-if="postData.auteur == this.userId || this.role == 1"
       />
     </div>
     <div class="post__body">
