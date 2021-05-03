@@ -7,7 +7,7 @@ export default {
   name: "Post",
   components: {
     PictureProfile,
-    Button
+    Button,
   },
   props: ["postData"],
   data: function () {
@@ -24,7 +24,7 @@ export default {
       this.modes.commentMode = true;
     },
     sendComment() {
-       if (!this.contenu) {
+      if (!this.contenu) {
         this.emptyContent = true;
         return console.log("content can't be empty");
       }
@@ -37,10 +37,21 @@ export default {
       };
 
       axios
-        .post("http://localhost:3000/api/feed/comment/", commentData,)
+        .post("http://localhost:3000/api/feed/comment/", commentData)
         .then((response) => {
           this.contenu = null;
-          console.log(response);          
+          console.log(response);
+        });
+    },
+    deletePost() {
+      const postId = sessionStorage.getItem("userId");
+      const token = sessionStorage.getItem("token");
+      axios
+        .delete("http://localhost:3000/api/feed/post/" + postId, {
+            headers: { authorization: "Bearer " + token }
+          })
+        .then((response) => {
+          console.log(response);
         });
     },
   },
@@ -58,6 +69,11 @@ export default {
         </p>
         <p class="post__header__date">Le {{ postData.date }}</p>
       </div>
+      <Button
+        class="post__header__delete-button"
+        text="supprimer le post"
+        @click="deletePost()"
+      />
     </div>
     <div class="post__body">
       <p class="post__body__text">
@@ -80,7 +96,11 @@ export default {
           required="required"
           v-model="contenu"
         />
-        <Button class="post__footer__create-comment__button" text="Envoyer" @click="sendComment()" />
+        <Button
+          class="post__footer__create-comment__button"
+          text="Envoyer"
+          @click="sendComment()"
+        />
       </div>
     </div>
   </div>
@@ -112,6 +132,13 @@ export default {
 
     &__name--uppercase {
       text-transform: uppercase;
+    }
+
+    &__delete-button {
+      height: 50px;
+      border-radius: $border-radius-s;
+      width: 150px;
+      margin-left: auto;
     }
   }
 
@@ -170,8 +197,8 @@ export default {
         margin-left: 20px;
 
         &:hover {
-        background-color: lighten($secondary-color, 15%);
-      }
+          background-color: lighten($secondary-color, 15%);
+        }
       }
     }
   }

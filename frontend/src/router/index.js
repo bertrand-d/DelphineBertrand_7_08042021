@@ -21,7 +21,7 @@ export default new Router({
         component: Signin
     },
     {
-        path: '/profile/:id',
+        path: '/profile',
         name: 'Profile',
         component: Profile
     },

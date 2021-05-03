@@ -81,8 +81,8 @@ export default {
           sessionStorage.setItem("userId", response.data.userId);
           sessionStorage.setItem("token", response.data.token);
           //redirection vers le profil utilisateur
-          const userId = sessionStorage.getItem("userId");
-          router.push({ name: "Profile", params: { id: userId } });
+          // const userId = sessionStorage.getItem("userId");
+          router.push({ name: "Newsfeed" });
         })
         .catch((error) => {
           if (error.response.status === 401) {

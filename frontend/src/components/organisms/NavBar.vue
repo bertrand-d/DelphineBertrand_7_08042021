@@ -33,7 +33,7 @@ export default {
           ></router-link>
         </li>
         <li class="navbar__list__icon">
-          <router-link to="/profile/:id"
+          <router-link to="profile"
             ><Icon class="far fa-user"></Icon
           ></router-link>
         </li>

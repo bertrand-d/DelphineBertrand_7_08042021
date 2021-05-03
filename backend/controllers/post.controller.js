@@ -37,3 +37,17 @@ exports.allPosts = (req, res,) => {
         }
     });
 }
+
+//delete post
+exports.deletePost = (req, res, next) => {
+    const postId = req.params.id;
+    sql.query('DELETE FROM post WHERE id=?', postId, function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        } else if (results.length === 0) {
+            return res.status(401).json({ message: 'post inexistant' });
+        } else {
+            return res.status(200).json({ post: results[0], message: 'post supprimé' });
+        }
+    });
+};
