@@ -30,11 +30,9 @@ exports.allPosts = (req, res,) => {
     sql.query('SELECT post.id, post.contenu, post.media_url, DATE_FORMAT(post.date, "%d/%m/%Y") date, auteur, user.nom, user.prenom FROM post INNER JOIN user ON post.auteur = user.id ORDER BY post.date ASC', function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
-        } else if (results.length === 0) {
-            return res.status(401).json({ message: 'post inexistant' });
-        } else {
-            return res.status(200).json({ post: results });
         }
+        return res.status(200).json({ post: results });
+
     });
 }
 
@@ -56,10 +54,7 @@ exports.deletePost = (req, res, next) => {
     sql.query(q, p, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
-        } else if (results.length === 0) {
-            return res.status(401).json({ message: 'post inexistant' });
-        } else {
-            return res.status(200).json({ message: 'post supprimé' });
         }
+        return res.status(200).json({ message: 'post supprimé' });
     });
 };
