@@ -5,6 +5,6 @@ const auth = require('../middleware/auth');
 
 router.post('/post',auth, postCtrl.createPost);
 router.get('/post',auth, postCtrl.allPosts);
-// router.delete('/post', postCtrl.deletePost);
+router.delete('/post/:id',auth, postCtrl.deletePost);
 
 module.exports = router;

@@ -40,7 +40,7 @@ export default {
     <div class="news-feed__max-container">
       <CreatePost class="news-feed__create-post" @refresh="getPosts()" />
       <div class="news-feed__spacer"></div>  
-      <Post class="news-feed__post" v-for="post in allPosts" :key="post.id" :postData="post"/>    
+      <Post class="news-feed__post" v-for="post in allPosts" :key="post.id" :postData="post" @refresh="getPosts()"/>    
     </div>
   </div>
 </template>

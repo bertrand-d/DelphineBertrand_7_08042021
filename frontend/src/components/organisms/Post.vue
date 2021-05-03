@@ -21,15 +21,19 @@ export default {
     };
   },
   methods: {
+    notifyParent() {
+      this.$emit('refresh'); //refresh get all post when add new post
+    },
     deletePost() {
-      const userId = sessionStorage.getItem("userId");
+      const postId = this.postData.id;
       const token = sessionStorage.getItem("token");
       axios
-        .delete("http://localhost:3000/api/feed/post/" + userId, {
+        .delete("http://localhost:3000/api/feed/post/" + postId, {
           headers: { authorization: "Bearer " + token },
         })
         .then((response) => {
-          console.log(response);
+          console.log("post supprimé", response);
+          this.notifyParent();
         });
     },
     commentMode() {

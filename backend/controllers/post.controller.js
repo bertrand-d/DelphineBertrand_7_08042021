@@ -40,8 +40,10 @@ exports.allPosts = (req, res,) => {
 
 //delete post
 exports.deletePost = (req, res, next) => {
+    console.log("this.deletePost");
     const postId = req.params.id;
-    sql.query('DELETE FROM post WHERE id=?', postId, function (error, results, fields) {
+    const userId = req.currentUserId;
+    sql.query('DELETE FROM post WHERE id=? AND auteur=? ', [postId, userId], function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else if (results.length === 0) {
