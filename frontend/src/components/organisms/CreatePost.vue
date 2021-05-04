@@ -15,13 +15,21 @@ export default {
       uploadQuantity: 0,
       contenu: null,
       media_url: null,
-
       errors: {
         emptyContent: false,
       },
+
+      file: '',
+
     };
   },
   methods: {
+    
+       handleFileUpload(event){
+         console.log('Handling file', event.target.files[0])
+    this.file = event.target.files[0];
+    console.log('file is ', this.file);
+  },
     previewFiles(event) {
       this.uploadQuantity = event.target.files.length;
     },
@@ -29,29 +37,41 @@ export default {
       this.$emit('refresh'); //refresh get all post when add new post
     },
     sendPost() {
+
+      
       if (!this.contenu) {
         this.errors.emptyContent = true;
         return console.log("content can't be empty");
       }
       const today = new Date().toISOString().slice(0, 10);
       const token = sessionStorage.getItem("token");
-      const postData = {
-        date: today,
-        contenu: this.contenu,
-        media_url: this.media_url,
-        auteur: sessionStorage.getItem("userId"),
-      };
+    
+
+      // Utilisation formdata pour envoyer des données JSON et des fichiers simultanément
+      const form = new FormData();
+      form.append('date', today);
+      form.append('contenu', this.contenu);
+      form.append('media_url', this.media_url);
+      form.append('auteur', sessionStorage.getItem("userId"));
+      form.append('media', this.file);
+
 
       axios
-        .post("http://localhost:3000/api/feed/post/", postData, {
-          headers: { authorization: "Bearer " + token },
+        .post("http://localhost:3000/api/feed/post/", form, {
+          headers: { 
+            authorization: "Bearer " + token,
+          },
         })
         .then((response) => {
           this.contenu = null;
           this.media_url = null;
+          this.file = '';
           this.notifyParent()
           console.log(response);          
-        });
+        })
+.catch(function(){
+  console.log('FAILURE!!');
+});
     },
   },
 };
@@ -81,11 +101,11 @@ export default {
       <input
         class="create-post__footer__input"
         type="file"
-        multiple
         accept="image/png, image/jpeg, image/jpg, image/png, video/mp4, video/mkv"
         name="media"
         id="media"
-        @change="previewFiles"
+        @change="this.handleFileUpload"
+
       />
       <p
         v-if="this.uploadQuantity"

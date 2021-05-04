@@ -7,8 +7,14 @@ const Post = require("../models/post.model.js");
 
 //post
 exports.createPost = (req, res) => {
+
+    // Multer result injected into req.file
+
     // Create Post since model
-    let newPost = new Post(req.body);
+    let postData = req.body;
+    postData.media_url = req.file ? req.file.filename : null;
+
+    let newPost = new Post(postData);
     // Insert post in DB
     sql.query('INSERT INTO post SET ?', newPost, function (error, results, fields) {
         if (error) {

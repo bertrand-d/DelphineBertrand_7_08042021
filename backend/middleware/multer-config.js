@@ -20,4 +20,4 @@ const storage = multer.diskStorage({ //où enregistrer les fichiers entrants
     }
 });
 
-module.exports = multer({storage: storage}).single('image'); //exporte l'élément multer et passe la constante storage
+module.exports = multer({storage: storage}).single('media'); //exporte l'élément multer et passe la constante storage
