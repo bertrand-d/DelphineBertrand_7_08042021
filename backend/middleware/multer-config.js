@@ -3,7 +3,9 @@ const multer = require('multer');
 const MIME_TYPES = {
     'image/jpg': 'jpg',
     'image/jpeg': 'jpg',
-    'image/png' : 'png'
+    'image/png' : 'png',
+    'video/mp4' : 'mp4',
+    'video/mkv' : 'mkv'
 };
 
 const storage = multer.diskStorage({ //où enregistrer les fichiers entrants
@@ -18,5 +20,4 @@ const storage = multer.diskStorage({ //où enregistrer les fichiers entrants
     }
 });
 
-module.exports = multer({storage: storage}).single('image'); //exporte l'élément multer et passe la constante storage, en indiquant que 
-//nous gérons uniquement des images
+module.exports = multer({storage: storage}).single('image'); //exporte l'élément multer et passe la constante storage

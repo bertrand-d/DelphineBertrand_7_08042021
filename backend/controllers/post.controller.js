@@ -38,7 +38,6 @@ exports.allPosts = (req, res,) => {
 
 //delete post
 exports.deletePost = (req, res, next) => {
-    console.log("this.deletePost");
     const postId = req.params.id;
     const userId = req.currentUserId;
 

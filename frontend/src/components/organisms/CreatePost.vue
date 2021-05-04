@@ -82,6 +82,7 @@ export default {
         class="create-post__footer__input"
         type="file"
         multiple
+        accept="image/png, image/jpeg, image/jpg, image/png, video/mp4, video/mkv"
         name="media"
         id="media"
         @change="previewFiles"

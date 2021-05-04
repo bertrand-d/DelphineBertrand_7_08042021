@@ -72,6 +72,7 @@ export default {
           headers: { authorization: "Bearer " + token },
         })
         .then((response) => {
+          console.log('resopnse', response.data.comments);
           this.allComments = response.data.comments;
         });
     },
@@ -141,7 +142,7 @@ export default {
         />
         <div class="post__footer__display-comment__content">
           <p class="post__footer__display-comment__name">
-            {{ comment.auteur }}
+            {{ comment.nom }} {{ comment.prenom }}
           </p>
           <p>{{ comment.contenu }}</p>
         </div>
