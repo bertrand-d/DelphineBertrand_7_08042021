@@ -29,7 +29,7 @@ exports.createComment = (req, res) => {
 exports.allComments = (req, res,) => {
     const postId = req.params.postId;
 
-    sql.query('SELECT * FROM commentaire WHERE post=? ', postId, function (error, results, fields) {
+    sql.query('SELECT * FROM commentaire WHERE post=? ORDER BY id DESC ', postId, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         } else {

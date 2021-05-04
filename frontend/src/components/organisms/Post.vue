@@ -19,7 +19,7 @@ export default {
       contenu: null,
       allComments: [],
       userId: sessionStorage.getItem("userId"),
-      role : sessionStorage.getItem("role"),
+      role: sessionStorage.getItem("role"),
     };
   },
   methods: {
@@ -66,15 +66,15 @@ export default {
     },
     getcomments() {
       const postId = this.postData.id;
-    const token = sessionStorage.getItem("token");
-    axios
-      .get("http://localhost:3000/api/feed/comment/" + postId, {
-        headers: { authorization: "Bearer " + token },
-      })
-      .then((response) => {
-        this.allComments = response.data.comments;
-      });
-    }
+      const token = sessionStorage.getItem("token");
+      axios
+        .get("http://localhost:3000/api/feed/comment/" + postId, {
+          headers: { authorization: "Bearer " + token },
+        })
+        .then((response) => {
+          this.allComments = response.data.comments;
+        });
+    },
   },
   mounted() {
     this.getcomments();
@@ -109,7 +109,10 @@ export default {
         <i class="post__body__comment__icon far fa-comment"></i>
         <p class="post__body__comment__text">Commenter</p>
       </div>
-      <div class="post__body__spacer" v-if="this.modes.commentMode"></div>
+      <div
+        class="post__body__spacer"
+        v-if="this.modes.commentMode || this.allComments.length > 0"
+      ></div>
     </div>
     <div class="post__footer">
       <div class="post__footer__create-comment" v-if="this.modes.commentMode">
@@ -127,11 +130,22 @@ export default {
           @click="sendComment()"
         />
       </div>
-    </div>
-    <div>
-      <p v-for="comment in this.allComments" :key="comment.id">
-        {{ comment.contenu }}
-      </p>
+      <div
+        class="post__footer__display-comment"
+        v-for="comment in this.allComments"
+        :key="comment.id"
+      >
+        <PictureProfile
+          class="post__footer__display-comment__img"
+          src="default-avatar.png"
+        />
+        <div class="post__footer__display-comment__content">
+          <p class="post__footer__display-comment__name">
+            {{ comment.auteur }}
+          </p>
+          <p>{{ comment.contenu }}</p>
+        </div>
+      </div>
     </div>
   </div>
 </template>
@@ -149,9 +163,7 @@ export default {
     margin-bottom: 20px;
 
     &__img {
-      width: 60px;
-      height: 60px;
-      margin-right: 20px;
+      @extend .small-picture-profile;
     }
 
     &__name {
@@ -207,6 +219,7 @@ export default {
   &__footer {
     &__create-comment {
       display: flex;
+      align-items: center;
 
       &__input {
         width: 100%;
@@ -229,6 +242,29 @@ export default {
         &:hover {
           background-color: lighten($secondary-color, 15%);
         }
+      }
+    }
+
+    &__display-comment {
+      margin-top: 20px;
+      display: flex;
+      align-items: center;
+
+      &__content {
+        background-color: #f5f5f5;
+        width: 100%;
+        padding: 10px;
+        border-radius: 20px;
+        overflow-wrap: anywhere;
+        text-align: justify;
+      }
+
+      &__img {
+        @extend .small-picture-profile;
+      }
+
+      &__name {
+        font-weight: $font-weight-bold;
       }
     }
   }
