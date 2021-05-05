@@ -12,66 +12,56 @@ export default {
   },
   data: function () {
     return {
-      uploadQuantity: 0,
       contenu: null,
       media_url: null,
       errors: {
         emptyContent: false,
       },
 
-      file: '',
-
+      file: "",
     };
   },
   methods: {
-    
-       handleFileUpload(event){
-         console.log('Handling file', event.target.files[0])
-    this.file = event.target.files[0];
-    console.log('file is ', this.file);
-  },
-    previewFiles(event) {
-      this.uploadQuantity = event.target.files.length;
+    handleFileUpload(event) {
+      console.log("Handling file", event.target.files[0]);
+      this.file = event.target.files[0];
+      console.log("file is ", this.file);
     },
     notifyParent() {
-      this.$emit('refresh'); //refresh get all post when add new post
+      this.$emit("refresh"); //refresh get all post when add new post
     },
     sendPost() {
-
-      
       if (!this.contenu) {
         this.errors.emptyContent = true;
         return console.log("content can't be empty");
       }
       const today = new Date().toISOString().slice(0, 10);
       const token = sessionStorage.getItem("token");
-    
 
       // Utilisation formdata pour envoyer des données JSON et des fichiers simultanément
       const form = new FormData();
-      form.append('date', today);
-      form.append('contenu', this.contenu);
-      form.append('media_url', this.media_url);
-      form.append('auteur', sessionStorage.getItem("userId"));
-      form.append('media', this.file);
-
+      form.append("date", today);
+      form.append("contenu", this.contenu);
+      form.append("media_url", this.media_url);
+      form.append("auteur", sessionStorage.getItem("userId"));
+      form.append("media", this.file);
 
       axios
         .post("http://localhost:3000/api/feed/post/", form, {
-          headers: { 
+          headers: {
             authorization: "Bearer " + token,
           },
         })
         .then((response) => {
           this.contenu = null;
           this.media_url = null;
-          this.file = '';
-          this.notifyParent()
-          console.log(response);          
+          this.file = "";
+          this.notifyParent();
+          console.log(response);
         })
-.catch(function(){
-  console.log('FAILURE!!');
-});
+        .catch(function () {
+          console.log("FAILURE!!");
+        });
     },
   },
 };
@@ -105,16 +95,12 @@ export default {
         name="media"
         id="media"
         @change="this.handleFileUpload"
-
       />
       <p
-        v-if="this.uploadQuantity"
+        v-if="this.file"
         class="create-post__footer__upload-quantity"
       >
-        {{ this.uploadQuantity }} fichier<span v-if="this.uploadQuantity > 1"
-          >s</span
-        >
-        ajouté<span v-if="this.uploadQuantity > 1">s</span>
+        1 fichier ajouté
       </p>
 
       <Button

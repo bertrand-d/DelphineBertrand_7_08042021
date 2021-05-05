@@ -142,7 +142,7 @@ export default {
         />
         <div class="post__footer__display-comment__content">
           <p class="post__footer__display-comment__name">
-            {{ comment.nom }} {{ comment.prenom }}
+            {{ comment.prenom }} {{ comment.nom }}
           </p>
           <p>{{ comment.contenu }}</p>
         </div>
@@ -265,6 +265,7 @@ export default {
       }
 
       &__name {
+        text-transform: capitalize;
         font-weight: $font-weight-bold;
       }
     }
