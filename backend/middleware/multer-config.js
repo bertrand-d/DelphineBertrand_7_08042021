@@ -2,10 +2,9 @@ const multer = require('multer');
 
 const MIME_TYPES = {
     'image/jpg': 'jpg',
-    'image/jpeg': 'jpg',
+    'image/jpeg': 'jpeg',
     'image/png' : 'png',
-    'video/mp4' : 'mp4',
-    'video/mkv' : 'mkv'
+    'video/mp4' : 'mp4'
 };
 
 const storage = multer.diskStorage({ //où enregistrer les fichiers entrants

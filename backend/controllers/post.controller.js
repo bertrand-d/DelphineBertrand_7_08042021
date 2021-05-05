@@ -1,9 +1,10 @@
-// const jwt = require('jsonwebtoken');
 const { createPool } = require('mysql');
 //connect to DB
 const sql = require("../models/db.js");
 //post model
 const Post = require("../models/post.model.js");
+//fs's node
+const fs = require('fs');
 
 //post
 exports.createPost = (req, res) => {
@@ -47,7 +48,6 @@ exports.deletePost = (req, res, next) => {
     const postId = req.params.id;
     const userId = req.currentUserId;
 
-
     let q = 'DELETE FROM post WHERE id=? AND auteur=?';
     let p = [postId, userId];
     if (req.admin) {
@@ -55,6 +55,9 @@ exports.deletePost = (req, res, next) => {
         p = [postId];
 
     }
+
+    let mediaName = req.body.media_url;
+    fs.unlinkSync(`images/${mediaName}`);
 
     sql.query(q, p, function (error, results, fields) {
         if (error) {

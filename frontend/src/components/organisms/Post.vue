@@ -17,6 +17,8 @@ export default {
       },
       emptyContent: false,
       contenu: null,
+      thereIsImage: null,
+      thereIsVideo: null,
       allComments: [],
       userId: sessionStorage.getItem("userId"),
       role: sessionStorage.getItem("role"),
@@ -26,12 +28,41 @@ export default {
     notifyParent() {
       this.$emit("refresh"); //refresh get all post when add new post
     },
+    isThereMedia() {
+      if (this.postData.media_url) {
+        let extension = this.postData.media_url.split(".").pop();
+        if (
+          extension === "jpg" ||
+          extension === "jpeg" ||
+          extension === "png"
+        ) {
+          this.thereIsImage = true;
+        } else if ( extension === "mp4") {
+          this.thereIsVideo = true;
+        }
+      }
+    },
+    getMediaName() {
+      let mediaName = this.postData.media_url;
+      let extension = mediaName.split(".").pop();
+      if (mediaName === null) {
+        this.thereIsImage = false;
+      }
+      if (extension === "jpg" || extension === "jpeg" || extension === "png") {
+        return mediaName;
+      } else if (extension === "mp4") {
+        this.thereIsVideo = true;
+        return mediaName;
+      }
+    },
     deletePost() {
       const postId = this.postData.id;
+      const media_url = this.postData.media_url;
       const token = sessionStorage.getItem("token");
       axios
         .delete("http://localhost:3000/api/feed/post/" + postId, {
           headers: { authorization: "Bearer " + token },
+          data: { media_url },
         })
         .then(() => {
           console.log("post supprimé");
@@ -72,13 +103,13 @@ export default {
           headers: { authorization: "Bearer " + token },
         })
         .then((response) => {
-          console.log('resopnse', response.data.comments);
           this.allComments = response.data.comments;
         });
     },
   },
   mounted() {
     this.getcomments();
+    this.isThereMedia();
   },
 };
 </script>
@@ -105,6 +136,21 @@ export default {
       <p class="post__body__text">
         {{ postData.contenu }}
       </p>
+      <div class="post__body__img-container" v-if="this.thereIsImage">
+        <img
+          class="post__body__img"
+          :src="require(`../../../../backend/images/${getMediaName()}`)"
+        />
+      </div>
+      <div class="post__body__video-container" v-if="this.thereIsVideo">
+        <video class="post__body__video" controls>
+          <source
+            :src="require(`../../../../backend/images/${getMediaName()}`)"
+            type="video/mp4"
+          />
+          Your browser does not support the video tag.
+        </video>
+      </div>
       <div class="post__body__spacer"></div>
       <div class="post__body__comment" @click="commentMode()">
         <i class="post__body__comment__icon far fa-comment"></i>
@@ -190,6 +236,22 @@ export default {
       margin-bottom: 20px;
     }
 
+    &__img-container,
+    &__video-container {
+      height: 400px;
+      margin-bottom: 20px;
+    }
+
+    &__img {
+      @extend .img-size;
+      object-fit: contain;
+    }
+
+    &__video {
+      width: 100%;
+      height: 100%;
+    }
+
     &__spacer {
       width: 100%;
       margin-bottom: 20px;
@@ -267,6 +329,7 @@ export default {
       &__name {
         text-transform: capitalize;
         font-weight: $font-weight-bold;
+        margin-bottom: 5px;
       }
     }
   }

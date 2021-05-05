@@ -56,6 +56,7 @@ export default {
           this.contenu = null;
           this.media_url = null;
           this.file = "";
+          this.errors.emptyContent = false;
           this.notifyParent();
           console.log(response);
         })
