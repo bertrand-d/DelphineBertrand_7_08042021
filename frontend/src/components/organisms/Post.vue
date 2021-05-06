@@ -106,19 +106,20 @@ export default {
           this.allComments = response.data.comments;
         });
     },
-    deleteComment() {
-      const postId = this.postData.id;
-      console.log(postId)
+    deleteComment(commentId) {
       const token = sessionStorage.getItem("token");
       axios
-        .delete("http://localhost:3000/api/feed/comment/" + postId, {
+        .delete("http://localhost:3000/api/feed/comment/" + commentId, {
           headers: { authorization: "Bearer " + token },
         })
         .then(() => {
           console.log("commentaire supprimé");
-          this.notifyParent();
+          this.getcomments();
         });
     },
+    displayDeleteComment(comment){
+      return comment.auteur == this.userId || this.role == 1
+    }
   },
   mounted() {
     this.getcomments();
@@ -209,7 +210,8 @@ export default {
           <Button
             class="post__footer__delete-comment"
             text="supprimer"
-            @click="deleteComment()"
+            v-if="displayDeleteComment(comment)"
+            @click="deleteComment(comment.id)"
           />
         </div>
       </div>
