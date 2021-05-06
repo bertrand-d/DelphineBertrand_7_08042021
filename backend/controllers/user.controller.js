@@ -1,9 +1,8 @@
 const jwt = require('jsonwebtoken');
 const { createPool } = require('mysql');
 const bcrypt = require('bcrypt');
-const secret = 'jaimelesponeysetinternetaussi'
+
 // const { createHmac } = require('crypto');
-// const secret = 'jaimelesponeysetinternetaussi';
 
 //connect to DB
 const sql = require("../models/db.js");
@@ -43,10 +42,12 @@ exports.signin = (req, res) => {
 };
 
 //login
-exports.login = (req, res,) => {
-    const userEmail = req.body.email;
-    const userPassword = req.body.password;
-    sql.query('SELECT * FROM user WHERE email=? AND password=?', [userEmail, userPassword], function (error, results, fields) {
+
+exports.login = (req, res) => {
+
+    let email = req.body.email;
+    let password = req.body.password;
+    sql.query("SELECT * FROM user WHERE email = ? ", [email], function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         }
@@ -56,20 +57,29 @@ exports.login = (req, res,) => {
                 message: 'Le nom d\'utilisateur ou le mdp est invalide'
             })
         }
-        const userId = results[0].id;
-        const role = results[0].role;
-        return res.status(200).json({
-            message: 'utilisateur connecté',
-            userId: userId,
-            role: role,
-            token: jwt.sign(
-                { userId: userId, role: role },
-                'TmURuMzDYt10Vp8aealH',
-                { expiresIn: '24h' }
-            )
-        });
+        if (results[0].password) {
+            bcrypt.compare(req.body.password, results[0].password, function (err, result) {
+                if (result) {
+                    const userId = results[0].id;
+                    const role = results[0].role;
+                    return res.status(200).json({
+                        message: 'utilisateur connecté',
+                        userId: userId,
+                        role: role,
+                        token: jwt.sign(
+                            { userId: userId, role: role },
+                            'TmURuMzDYt10Vp8aealH',
+                            { expiresIn: '24h' }
+                        )
+                    });
+                }
+                else {
+                    return res.status(401).send();
+                }
+            })
+        }
     });
-}
+};
 
 //get user profile
 exports.profile = (req, res,) => {
