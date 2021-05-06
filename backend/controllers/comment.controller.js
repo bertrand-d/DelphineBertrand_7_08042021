@@ -38,3 +38,23 @@ exports.allComments = (req, res,) => {
         }
     });
 }
+
+//delete comment
+exports.deleteComment = (req, res, next) => {
+    const commentId = req.params.id;
+    const userId = req.currentUserId;
+
+    let q = 'DELETE FROM post WHERE id=? AND auteur=?';
+    let p = [commentId, userId];
+    if (req.admin) {
+        q = 'DELETE FROM post WHERE id=?';
+        p = [commentId];
+
+    }
+    sql.query(q, p, function (error, results, fields) {
+        if (error) {
+            return res.status(500).json({ error });
+        }
+        return res.status(200).json({ message: 'commentaire supprimé' });
+    });
+};

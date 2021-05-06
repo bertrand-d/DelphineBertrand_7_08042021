@@ -55,10 +55,9 @@ exports.deletePost = (req, res, next) => {
         p = [postId];
 
     }
-
-    let mediaName = req.body.media_url;
-    fs.unlinkSync(`images/${mediaName}`);
-
+    if(req.body.media_url) {
+        fs.unlinkSync(`images/${req.body.media_url}`);
+    }
     sql.query(q, p, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
