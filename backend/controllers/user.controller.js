@@ -1,9 +1,6 @@
 const jwt = require('jsonwebtoken');
 const { createPool } = require('mysql');
 const bcrypt = require('bcrypt');
-
-// const { createHmac } = require('crypto');
-
 //connect to DB
 const sql = require("../models/db.js");
 //user model
