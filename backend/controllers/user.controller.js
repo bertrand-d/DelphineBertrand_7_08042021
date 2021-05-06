@@ -1,6 +1,7 @@
 const jwt = require('jsonwebtoken');
 const { createPool } = require('mysql');
-// const bcrypt = require('bcrypt');
+const bcrypt = require('bcrypt');
+const secret = 'jaimelesponeysetinternetaussi'
 // const { createHmac } = require('crypto');
 // const secret = 'jaimelesponeysetinternetaussi';
 
@@ -11,21 +12,34 @@ const User = require("../models/user.model.js");
 
 
 exports.signin = (req, res) => {
-    // Create User since model
-    let newUser = new User(req.body);
-    // Insert user in DB
-    sql.query('INSERT INTO user SET ?', newUser, function (error, results, fields) {
-        if (error) {
-            return res.status(500).json({ error });
-        }
-        // DB ok
-        const id = results.insertId;
-        newUser.id = id;
-        return res.status(200).json({
-            message: 'utilisateur créé',
-            user: newUser
-        });
-    });
+    //encrypt password
+    bcrypt.hash(req.body.password, 10) //appelle la fonction de hachage et "sale" le mdp 10 fois
+        .then(hash => {
+            const newUser = new User({ //crée l'utilisateur
+                id: req.body.id,
+                nom: req.body.nom,
+                prenom: req.body.prenom,
+                ville: req.body.ville,
+                email: req.body.email,
+                password: hash,
+                date_naissance: req.body.date_naissance,
+                avatar_url: req.body.avatar_url,
+                role: req.body.role,
+            });
+            // Insert user in DB
+            sql.query('INSERT INTO user SET ?', newUser, function (error, results, fields) {
+                if (error) {
+                    return res.status(500).json({ error });
+                }
+                // DB ok
+                const id = results.insertId;
+                newUser.id = id;
+                return res.status(200).json({
+                    message: 'utilisateur créé',
+                    user: newUser
+                });
+            });
+        })
 };
 
 //login
@@ -47,7 +61,7 @@ exports.login = (req, res,) => {
         return res.status(200).json({
             message: 'utilisateur connecté',
             userId: userId,
-            role : role,
+            role: role,
             token: jwt.sign(
                 { userId: userId, role: role },
                 'TmURuMzDYt10Vp8aealH',

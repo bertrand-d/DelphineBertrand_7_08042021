@@ -8,6 +8,7 @@ const userSchema = function(user) {
     this.password = user.password;
     this.date_naissance = user.date_naissance;
     this.avatar_url = user.avatar_url;
+    this.role = user.role;
 };
 
 module.exports = userSchema;

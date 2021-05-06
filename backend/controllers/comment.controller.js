@@ -43,18 +43,20 @@ exports.allComments = (req, res,) => {
 exports.deleteComment = (req, res, next) => {
     const commentId = req.params.id;
     const userId = req.currentUserId;
-
-    let q = 'DELETE FROM post WHERE id=? AND auteur=?';
+    
+    let q = 'DELETE FROM commentaire WHERE commentaire.id=? AND auteur=?';
     let p = [commentId, userId];
     if (req.admin) {
-        q = 'DELETE FROM post WHERE id=?';
-        p = [commentId];
+        q = 'DELETE FROM commentaire WHERE commentaire.id=?';
+        p = [commentId, postId];
 
     }
     sql.query(q, p, function (error, results, fields) {
         if (error) {
             return res.status(500).json({ error });
         }
+        console.log(commentId);
+        console.log(userId);
         return res.status(200).json({ message: 'commentaire supprimé' });
     });
 };

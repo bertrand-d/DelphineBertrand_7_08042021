@@ -37,7 +37,7 @@ export default {
           extension === "png"
         ) {
           this.thereIsImage = true;
-        } else if ( extension === "mp4") {
+        } else if (extension === "mp4") {
           this.thereIsVideo = true;
         }
       }
@@ -104,6 +104,19 @@ export default {
         })
         .then((response) => {
           this.allComments = response.data.comments;
+        });
+    },
+    deleteComment() {
+      const postId = this.postData.id;
+      console.log(postId)
+      const token = sessionStorage.getItem("token");
+      axios
+        .delete("http://localhost:3000/api/feed/comment/" + postId, {
+          headers: { authorization: "Bearer " + token },
+        })
+        .then(() => {
+          console.log("commentaire supprimé");
+          this.notifyParent();
         });
     },
   },
@@ -186,11 +199,18 @@ export default {
           class="post__footer__display-comment__img"
           src="default-avatar.png"
         />
-        <div class="post__footer__display-comment__content">
-          <p class="post__footer__display-comment__name">
-            {{ comment.prenom }} {{ comment.nom }}
-          </p>
-          <p>{{ comment.contenu }}</p>
+        <div class="post__footer__display-comment__container">
+          <div>
+            <p class="post__footer__display-comment__name">
+              {{ comment.prenom }} {{ comment.nom }}
+            </p>
+            <p class="post__footer__display-comment__content">{{ comment.contenu }}</p>
+          </div>
+          <Button
+            class="post__footer__delete-comment"
+            text="supprimer"
+            @click="deleteComment()"
+          />
         </div>
       </div>
     </div>
@@ -313,13 +333,15 @@ export default {
       display: flex;
       align-items: center;
 
-      &__content {
+      &__container {
+        display: flex;
         background-color: #f5f5f5;
         width: 100%;
         padding: 10px;
         border-radius: 20px;
         overflow-wrap: anywhere;
         text-align: justify;
+        align-items: center;
       }
 
       &__img {
@@ -331,7 +353,19 @@ export default {
         font-weight: $font-weight-bold;
         margin-bottom: 5px;
       }
+
+      &__content {
+        margin-right: 10px;
+      }
     }
+
+       &__delete-comment {
+        min-width: 110px;
+        max-width: 150px;
+        height: 40px;
+        margin-left: auto;
+        border-radius: $border-radius-s;
+      }
   }
 }
 </style>
