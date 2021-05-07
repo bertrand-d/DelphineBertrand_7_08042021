@@ -49,4 +49,5 @@ nodemon (dans le dossier back)
 npm run serve (dans le dossier front)
 
 - Mot de passe des utilisateurs
+
 Les utilisateurs déjà existant dans la DB pour la version demo ont tous le même mot de passe, à savoir "testtest"
