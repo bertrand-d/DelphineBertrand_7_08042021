@@ -65,7 +65,7 @@ export default {
           this.nom = this.user.nom;
           this.prenom = this.user.prenom;
           this.date_naissance = this.user.date_naissance;
-          this.ville= this.user.ville;
+          this.ville = this.user.ville;
           this.avatar_url = this.user.avatar_url;
         });
     },
@@ -175,7 +175,7 @@ export default {
         const token = sessionStorage.getItem("token");
         axios
           .put("http://localhost:3000/api/auth/profile/" + userId, postData, {
-          headers: { authorization: "Bearer " + token },
+            headers: { authorization: "Bearer " + token },
           })
           .then(() => {
             this.modes.read = true;
@@ -193,7 +193,7 @@ export default {
             headers: { authorization: "Bearer " + token },
           })
           .then((response) => {
-            console.log(response)
+            console.log(response);
             //redirection vers le login
             router.push("/");
           });
@@ -358,15 +358,24 @@ export default {
     flex-grow: 1;
     flex-basis: 0;
 
+    @media screen and(max-width: 1100px) {
+      margin-bottom: 20px;
+    }
+
     &__img {
       width: 250px;
       height: 250px;
+
+      @media screen and(max-width: 1100px) {
+        margin-bottom: 20px;
+      }
     }
 
     .profile__information__user {
       margin: auto;
       text-align: center;
-      width: 60%;
+      max-width: 60%;
+      min-width: 30%;
 
       &-text {
         text-transform: capitalize;
