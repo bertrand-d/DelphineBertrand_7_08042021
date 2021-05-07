@@ -1,6 +1,7 @@
 const express = require('express');
 const app = express();
 const mysql = require('mysql');
+const helmet = require("helmet");
 //routeurs
 const userRoutes = require('./routes/user.route');
 const postRoutes = require('./routes/post.route');
@@ -16,6 +17,9 @@ app.use((req, res, next) => {
 
 //body parser
 app.use(express.json());
+
+//helmet
+app.use(helmet());
 
 //routes
 app.use('/api/auth', userRoutes);
