@@ -9,8 +9,6 @@ const fs = require('fs');
 //post
 exports.createPost = (req, res) => {
 
-    // Multer result injected into req.file
-
     // Create Post since model
     let postData = req.body;
     postData.media_url = req.file ? req.file.filename : null;
@@ -39,7 +37,6 @@ exports.allPosts = (req, res,) => {
             return res.status(500).json({ error });
         }
         return res.status(200).json({ post: results });
-
     });
 }
 

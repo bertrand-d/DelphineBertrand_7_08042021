@@ -1,6 +1,5 @@
 const express = require('express');
 const app = express();
-const mysql = require('mysql');
 const helmet = require("helmet");
 //routeurs
 const userRoutes = require('./routes/user.route');
