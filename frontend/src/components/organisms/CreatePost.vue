@@ -71,7 +71,7 @@ export default {
 <template>
   <div class="create-post">
     <div class="create-post__body">
-      <PictureProfile class="create-post__body__img" src="default-avatar.png" />
+      <PictureProfile class="create-post__body__img" alt="photo de profil de l'utilisateur" src="default-avatar.png" />
       <input
         class="create-post__body__input"
         type="text"
@@ -85,8 +85,8 @@ export default {
       </p>
     </div>
     <div class="create-post__footer">
-      <i class="create-post__footer__icon far fa-image"></i>
-      <label class="create-post__footer__label" for="media"
+      <i class="create-post__footer__icon far fa-image" aria-label="icone ajouter un média"></i>
+      <label class="create-post__footer__label" for="media" aria-label="cliquer ici pour ajouter une photo ou une vidéo"
         >Ajouter un média</label
       >
       <input

@@ -9,7 +9,7 @@ export default {
   <img
     class="logo"
     :src="require(`@/assets/${src}`)"
-    alt="logo de l'entreprise grouporama représentant une planète"
+    alt="logo de l'entreprise groupomania représentant une planète"
   />
 </template>
 
