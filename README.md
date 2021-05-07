@@ -39,6 +39,7 @@ Node.js, MySQL et NPM
 - Installation
 
 se rendre dans le dossier backend et effectuer npm install pour installer les dépendances du back
+
 idem dans le dossier frontend
 
 la DB se trouve dans le dossier "db export" du backend. Une fois installée, vous pouvez la configurer grace au fichier db.config.js se trouvant dans le dossier config du backend.
@@ -46,6 +47,7 @@ la DB se trouve dans le dossier "db export" du backend. Une fois installée, vou
 - Lancement des serveurs
 
 nodemon (dans le dossier back)
+
 npm run serve (dans le dossier front)
 
 - Mot de passe des utilisateurs
