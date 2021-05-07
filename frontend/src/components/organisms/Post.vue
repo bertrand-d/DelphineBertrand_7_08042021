@@ -153,12 +153,14 @@ export default {
       <div class="post__body__img-container" v-if="this.thereIsImage">
         <img
           class="post__body__img"
+          aria-label="image partagée par l'utilisateur"
           :src="require(`../../../../backend/images/${getMediaName()}`)"
         />
       </div>
       <div class="post__body__video-container" v-if="this.thereIsVideo">
-        <video class="post__body__video" controls>
+        <video class="post__body__video" aria-label="vidéo partagée par l'utilisateur, cliquer ici pour la lire" controls>
           <source
+          
             :src="require(`../../../../backend/images/${getMediaName()}`)"
             type="video/mp4"
           />
@@ -167,8 +169,8 @@ export default {
       </div>
       <div class="post__body__spacer"></div>
       <div class="post__body__comment" @click="commentMode()">
-        <i class="post__body__comment__icon far fa-comment"></i>
-        <p class="post__body__comment__text">Commenter</p>
+        <i class="post__body__comment__icon far fa-comment" aria-label="icône commenter"></i>
+        <p class="post__body__comment__text" aria-label="cliquer ici pour commenter">Commenter</p>
       </div>
       <div
         class="post__body__spacer"

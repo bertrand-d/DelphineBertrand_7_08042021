@@ -106,6 +106,7 @@ export default {
         placeholder="E-mail"
         required
         v-model="email"
+        aria-label="entrer votre adresse email pour vous connecter"
       />
       <p class="login__body__alert" v-if="errors.emptyEmail">
         * Merci de compléter ce champ
@@ -120,6 +121,7 @@ export default {
         placeholder="Mot de passe"
         required
         v-model="password"
+        aria-label="entrer votre mot de passe pour vous connecter"
       />
       <p class="login__body__alert" v-if="errors.emptyPassword">
         * Merci de compléter ce champ

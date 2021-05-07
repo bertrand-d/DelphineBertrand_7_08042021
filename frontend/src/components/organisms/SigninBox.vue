@@ -177,6 +177,7 @@ export default {
             placeholder="Nom"
             required
             v-model="nom"
+            aria-label="entrer votre nom pour vous inscrire"
           />
           <p class="signin__body__alert" v-if="errors.emptyNom">
             * Merci de compléter ce champ
@@ -191,6 +192,7 @@ export default {
             placeholder="Prénom"
             required
             v-model="prenom"
+            aria-label="entrer votre prénom pour vous inscrire"
           />
           <p class="signin__body__alert" v-if="errors.emptyPrenom">
             * Merci de compléter ce champ
@@ -199,7 +201,7 @@ export default {
             * Merci de renseigner un prénom valide
           </p>
 
-          <InputDate v-model="date_naissance"/>
+          <InputDate v-model="date_naissance" aria-label="entrer votre date de naissance pour vous inscrire"/>
           <p class="signin__body__alert" v-if="errors.emptyDate">
             * Merci de compléter ce champ
           </p>
@@ -229,6 +231,7 @@ export default {
             placeholder="Email"
             required
             v-model="email"
+            aria-label="entrer votre adresse email pour vous inscrire"
           />
           <p class="signin__body__alert" v-if="errors.emptyEmail">
             * Merci de compléter ce champ
@@ -243,6 +246,7 @@ export default {
             placeholder="Mot de passe"
             required
             v-model="password"
+            aria-label="choisissez un mot de passe de 8 caractères pour vous inscrire"
           />
           <p class="signin__body__alert" v-if="errors.emptyPassword">
             * Merci de compléter ce champ

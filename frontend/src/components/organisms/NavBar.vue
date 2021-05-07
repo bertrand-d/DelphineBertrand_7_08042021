@@ -29,16 +29,16 @@ export default {
       <ul class="navbar__list">
         <li class="navbar__list__icon">
           <router-link to="/newsfeed" exact
-            ><Icon class="far fa-comment-alt"></Icon
+            ><Icon class="far fa-comment-alt" aria-label="icone fil d'actualité"></Icon
           ></router-link>
         </li>
         <li class="navbar__list__icon">
           <router-link to="profile"
-            ><Icon class="far fa-user"></Icon
+            ><Icon class="far fa-user" aria-label="icone mon compte"></Icon
           ></router-link>
         </li>
         <li class="navbar__list__icon" @click="disconnect()">
-          <Icon class="far fa-times-circle"></Icon>
+          <Icon class="far fa-times-circle" aria-label="icone déconnexion"></Icon>
         </li>
       </ul>
     </nav>
