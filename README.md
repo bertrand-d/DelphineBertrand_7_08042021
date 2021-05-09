@@ -42,7 +42,14 @@ se rendre dans le dossier backend et effectuer npm install pour installer les d�
 
 idem dans le dossier frontend
 
-la DB se trouve dans le dossier "db export" du backend. Une fois installée, vous pouvez la configurer grace au fichier db.config.js se trouvant dans le dossier config du backend.
+la DB se trouve dans le dossier "db export" du backend. Une fois installée, vous pouvez la configurer grace au fichier .env que vous devez créer à la racine du dossier backend.
+
+DB_HOST=localhost
+DB_USER=root
+DB_PASSWORD=""
+DB_NAME=groupomania
+
+
 
 - Lancement des serveurs
 

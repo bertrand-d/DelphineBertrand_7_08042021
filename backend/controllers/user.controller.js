@@ -65,7 +65,7 @@ exports.login = (req, res) => {
                         role: role,
                         token: jwt.sign(
                             { userId: userId, role: role },
-                            'TmURuMzDYt10Vp8aealH',
+                            process.env.TOKEN_SECRET,
                             { expiresIn: '24h' }
                         )
                     });
