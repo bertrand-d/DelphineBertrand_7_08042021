@@ -64,7 +64,7 @@ export default {
           this.user = response.data.user;
           this.nom = this.user.nom;
           this.prenom = this.user.prenom;
-          this.date_naissance = this.user.date_naissance;
+          this.date_naissance = validateInput.parseDate(this.user.date_naissance); 
           this.ville = this.user.ville;
           this.avatar_url = this.user.avatar_url;
         });

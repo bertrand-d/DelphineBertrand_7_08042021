@@ -9,13 +9,18 @@ export default {
       },
       set(val) {
         this.$emit('input', val);
+        this.setInputMaskValue(val);
       }
     }
   },
-  mounted() {
-    window.setValue = function (val) {
+  methods: {
+    setInputMaskValue(val) {
       document.querySelector("#placeholder-date").value = val;
-    } //get value placeholder date of birth after completion
+     //get value placeholder date of birth after completion
+    }
+  },
+  mounted() {
+    if (this.value) this.setInputMaskValue(this.value);
   },
 };
 </script>
@@ -29,7 +34,6 @@ export default {
       type="date"
       name="date-of-birth"
       required
-      onblur="window.setValue(this.value)"
     />
     <input
       class="input-date"

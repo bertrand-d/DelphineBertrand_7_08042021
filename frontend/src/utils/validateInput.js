@@ -36,3 +36,8 @@ exports.test = (field, emptyValue, badValue) => {
     console.log(field, emptyValue, badValue)
     
 }
+
+exports.parseDate = (rawDate) => {
+    let [month, date, year]  = new Date(rawDate).toLocaleDateString("fr").split("/");
+    return `${year}-${month}-${date}`
+  }
