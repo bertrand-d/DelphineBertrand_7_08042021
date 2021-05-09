@@ -6,7 +6,7 @@ const result = dotenv.config()
 if (result.error) {
   throw new Error("Avez-vous bien renseigner le fichier .env ?")
 }
-if (process.env.TOKEN_SECRET) {
+if (!process.env.TOKEN_SECRET) {
   throw new Error("La clé TOKEN_SECRET n'est pas mentionnée dans la configuration")
 }
 // End of secrets loading
