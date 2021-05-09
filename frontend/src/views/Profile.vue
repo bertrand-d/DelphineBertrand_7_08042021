@@ -194,6 +194,7 @@ export default {
           })
           .then((response) => {
             console.log(response);
+            sessionStorage.clear();
             //redirection vers le login
             router.push("/");
           });
