@@ -44,12 +44,17 @@ idem dans le dossier frontend
 
 la DB se trouve dans le dossier "db export" du backend. Une fois installée, vous pouvez la configurer grace au fichier .env que vous devez créer à la racine du dossier backend.
 
-DB_HOST=localhost
-DB_USER=root
-DB_PASSWORD=""
-DB_NAME=groupomania
+votre fichier .env doit contenir les infos suivantes :
 
+DB_HOST= nom d'hôte
 
+DB_USER= nom d'utilisateur
+
+DB_PASSWORD= mot de passe
+
+DB_NAME= groupomania
+
+TOKEN_SECRET= clé secrète
 
 - Lancement des serveurs
 
