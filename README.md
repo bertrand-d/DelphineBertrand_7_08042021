@@ -58,7 +58,7 @@ TOKEN_SECRET= clé secrète
 
 - Lancement des serveurs
 
-nodemon (dans le dossier back)
+npm start (dans le dossier back)
 
 npm run serve (dans le dossier front)
 
